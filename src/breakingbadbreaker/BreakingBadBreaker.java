@@ -39,7 +39,9 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
             
             
-            
+        //Hago que se active con teclado
+        addKeyListener(this); 
+        
         // Declaras un hilo
         Thread t = new Thread (this);
 	// Empieza el hilo
@@ -56,7 +58,23 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
      */
     @Override
     public void run() {
-     
+        /* mientras dure el juego, se actualizan posiciones de jugadores
+           se checa si hubo colisiones para desaparecer jugadores o corregir
+           movimientos y se vuelve a pintar todo
+        */ 
+        while (true) {
+            actualiza();
+            checaColision();
+            repaint();
+            try	{
+                // El thread se duerme.
+                Thread.sleep (20);
+            }
+            catch (InterruptedException iexError) {
+                System.out.println("Hubo un error en el juego " + 
+                        iexError.toString());
+            }
+	}
     }
         
     
@@ -174,7 +192,10 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     public static void main(String[] args) {
         
     	// TODO code application logic here
-    	
+    	BreakingBadBreaker bbbJuego = new BreakingBadBreaker();
+    	bbbJuego.setSize(800, 500); // crea la ventana de 800x500
+    	bbbJuego.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	bbbJuego.setVisible(true);
 
     }
     
