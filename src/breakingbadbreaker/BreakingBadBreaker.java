@@ -30,6 +30,22 @@ import javax.swing.JFrame;
  */
 public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener {
 
+    
+     private final int iMAXANCHO = 10; // maximo numero de personajes por ancho
+    private final int iMAXALTO = 8;  // maxuimo numero de personajes por alto
+    private final int iHeight=500; // alto del JFrame
+    private final int iWidth=800; // ancho del JFrame
+    
+    //private Base basMalo;         // Objeto malo
+    
+    /* objetos para manejar el buffer del Applet y este no parpadee */
+    private Image    imaDBImage;   // Imagen a proyectar en Applet	
+    private Graphics graGrafica;  // Objeto grafico de la Imagen
+    
+    //private SoundClip scSonidoChimpy1;  // Objeto sonido de Chimpy 
+    //private SoundClip scSonidoChimpy2;  //Objeto sonido de Chimpy
+    
+    
    /**
      * Constructor de la clase <code>JuegoJFrame</code>.
      * En este metodo se inizializan las variables o se crean los objetos
@@ -110,7 +126,25 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
      * @param graphics es el <code>objeto grafico</code> usado para dibujar.
      */
     
-    public void paint(Graphics graphics) {
+    public void paint(Graphics graGrafico) {
+        
+        // Inicializan el DoubleBuffer
+        if (imaDBImage == null){
+            imaDBImage = createImage (this.getSize().width, this.getSize().height);
+            graGrafica = imaDBImage.getGraphics ();
+	}
+        
+        Image imgFondo = Toolkit.getDefaultToolkit().getImage(this.getClass().
+                getResource("fondo.png"));
+        
+        graGrafica.drawImage(imgFondo, 0,0,800,500, this);
+        
+        // Actualiza el Foreground.
+        graGrafica.setColor (getForeground());
+        paint1(graGrafica);
+
+        // Dibuja la imagen actualizada
+        graGrafico.drawImage (imaDBImage, 0, 0, this);
         
         
         
