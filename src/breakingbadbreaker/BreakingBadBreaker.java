@@ -66,6 +66,9 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     private int iPosXBarra;
     private int iPosYBarra;
     
+    private Animacion aniHank;
+    private long lTiempo;
+    
    /**
      * Constructor de la clase <code>JuegoJFrame</code>.
      * En este metodo se inizializan las variables o se crean los objetos
@@ -100,6 +103,26 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
         basBarra = new Base(iWidth / 2, 9 * iHeight / 10 , 
                 iWidth / 3 , iHeight / 10, imgBarra);
+        
+        //Creo animacion
+        aniHank = new Animacion();
+        long lDuracion = 60;
+        aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("HankA.png")), lDuracion);
+        aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("HankB.png")), lDuracion);
+        aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("HankC.png")), lDuracion);
+        aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("HankD.png")), lDuracion);
+        aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("HankE.png")), lDuracion);
+        aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("HankF.png")), lDuracion);
+        aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("HankG.png")), lDuracion);
+        aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("HankH.png")), lDuracion);
         
         int iPosX  = 0;
         int iPosY = 0;
@@ -145,6 +168,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
            se checa si hubo colisiones para desaparecer jugadores o corregir
            movimientos y se vuelve a pintar todo
         */ 
+        lTiempo = System.currentTimeMillis();
         while (iCantBloques > 0) {
             actualiza();
             checaColision();
@@ -167,8 +191,11 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
      * 
      */
     public void actualiza(){
-            
-            
+        
+        long lTiempoTrans = System.currentTimeMillis() - lTiempo;
+        lTiempo = System.currentTimeMillis();
+        aniHank.actualiza(lTiempoTrans);
+        
         if(iTecla == 1){
             basBarra.setX(basBarra.getX() - 10);
         }
@@ -308,8 +335,8 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         if (lklBlock != null && basBall != null && basBarra != null) {
             
             //dibuja la ball
-            basBall.paint(graDibujo, this);
-            
+            graDibujo.drawImage(aniHank.getImagen(),basBall.getX(),
+                    basBall.getY(),iWidth/15, iHeight/12, this);
             //dibuja la barra
             basBarra.paint(graDibujo, this);
             
