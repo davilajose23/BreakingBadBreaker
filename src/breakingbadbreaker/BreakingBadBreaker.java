@@ -31,12 +31,13 @@ import javax.swing.JFrame;
 public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener {
 
     
-     private final int iMAXANCHO = 10; // maximo numero de personajes por ancho
-    private final int iMAXALTO = 8;  // maxuimo numero de personajes por alto
-    private final int iHeight=500; // alto del JFrame
-    private final int iWidth=800; // ancho del JFrame
+    private final int iMAXANCHO = 10; // maximo numero de personajes por ancho
+    private final int iMAXALTO = 6;  // maxuimo numero de personajes por alto
+    private final int iHeight = 700; // alto del JFrame
+    private final int iWidth = 1000; // ancho del JFrame
     
     //private Base basMalo;         // Objeto malo
+    
     
     /* objetos para manejar el buffer del Applet y este no parpadee */
     private Image    imaDBImage;   // Imagen a proyectar en Applet	
@@ -46,6 +47,13 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     //private SoundClip scSonidoChimpy2;  //Objeto sonido de Chimpy
     
     
+    // Se declaran las variables a usar
+    private LinkedList<Base> lklMeth; //Lista de meths
+    
+    private Image imgMeth;
+    
+    
+    
    /**
      * Constructor de la clase <code>JuegoJFrame</code>.
      * En este metodo se inizializan las variables o se crean los objetos
@@ -53,7 +61,29 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
      */
 	public BreakingBadBreaker() {
         
+       
+        
+        
+        lklMeth = new LinkedList<Base>();   //Creo la lista de meth
+        
+        //la imagen de cada Meth
+        imgMeth = Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("walter.png"));
+        
+        
+        for(int iI = 0; iI < 10 ; iI++) {
+            int iPosRandX  = (int) (Math.random() * iWidth);
+            int iPosRandY  = (int) (Math.random() * iHeight);
             
+            Base basMeth = new Base(iPosRandX, iPosRandY,
+                     iWidth / iMAXANCHO, iHeight / iMAXALTO,imgMeth);
+            //iPosRandX = (int) (Math.random() * (iWidth - 
+                      //  basMeth.getAncho()));
+            
+            
+           // basMeth.setX(iPosRandX);
+            lklMeth.add(basMeth);
+        }
             
         //Hago que se active con teclado
         addKeyListener(this); 
@@ -137,7 +167,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         Image imgFondo = Toolkit.getDefaultToolkit().getImage(this.getClass().
                 getResource("fondo.png"));
         
-        graGrafica.drawImage(imgFondo, 0,0,800,500, this);
+        graGrafica.drawImage(imgFondo, 0,0,iWidth,iHeight, this);
         
         // Actualiza el Foreground.
         graGrafica.setColor (getForeground());
@@ -158,9 +188,16 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
      * @param graphics es el <code>objeto grafico</code> usado para dibujar.
      */
     
-    public void paint1 (Graphics graphics){
+    public void paint1 (Graphics graDibujo){
         
-        
+        if (lklMeth != null) {
+            //Dibuja la imagen de los Juanitos
+            for (Base basMeth:lklMeth) {
+                
+               
+                basMeth.paint(graDibujo, this);
+            }
+        }
     }
     
     /**
@@ -227,7 +264,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
     	// TODO code application logic here
     	BreakingBadBreaker bbbJuego = new BreakingBadBreaker();
-    	bbbJuego.setSize(800, 500); // crea la ventana de 800x500
+    	bbbJuego.setSize(1000, 700); // crea la ventana de 800x500
     	bbbJuego.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	bbbJuego.setVisible(true);
 
