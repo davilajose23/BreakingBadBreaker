@@ -37,7 +37,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     private final int iWidth = 1000; // ancho del JFrame
     
     private Base basBall;         // Objeto Ball
-    
+    private Base basBarra;         // Objeto Barra
     
     /* objetos para manejar el buffer del Applet y este no parpadee */
     private Image    imaDBImage;   // Imagen a proyectar en Applet	
@@ -48,11 +48,13 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     
     
     // Se declaran las variables a usar
-    private LinkedList<Base> lklMeth; //Lista de meths
+    private LinkedList<Base> lklBlock; //Lista de meths
     
-    private Image imgMeth;
+    private Image imgBlock;
     private Image imgBall;
+    private Image imgBarra;
     
+    private int iCantBloques;
     
     
    /**
@@ -65,18 +67,25 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
        
         
         
-        lklMeth = new LinkedList<Base>();   //Creo la lista de meth
+        lklBlock = new LinkedList<Base>();   //Creo la lista de meth
         
-        //la imagen de cada Meth
-        imgMeth = Toolkit.getDefaultToolkit().getImage(this.getClass()
+        //la imagen de cada Block
+        imgBlock = Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("walter.png"));
         
         // la imagen de ball
         imgBall = Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("hank.png"));
+        // la imagen de ball
+        imgBarra = Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("barra.png"));
+        
         
         basBall = new Base(iWidth / 2, 3 * iHeight / 4 , 
                 iWidth / 10 , iHeight / 7, imgBall);
+        
+        basBarra = new Base(iWidth / 2, 9 * iHeight / 10 , 
+                iWidth / 3 , iHeight / 10, imgBarra);
         
         int iPosX  = 0;
         int iPosY = 0;
@@ -84,8 +93,8 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         for(int iI = 0; iI < iMAXANCHO * 3 ; iI++) {
             
          
-            Base basMeth = new Base(iPosX, iPosY,
-                     iWidth / iMAXANCHO, iHeight / iMAXALTO,imgMeth);
+            Base basBlock = new Base(iPosX, iPosY,
+                     iWidth / iMAXANCHO, iHeight / iMAXALTO,imgBlock);
            
             iPosX += iWidth / iMAXANCHO;
             if(iPosX == iWidth){
@@ -94,7 +103,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             }
            
             
-            lklMeth.add(basMeth);
+            lklBlock.add(basBlock);
         }
             
         //Hago que se active con teclado
@@ -202,16 +211,19 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     
     public void paint1 (Graphics graDibujo){
         
-        if (lklMeth != null && basBall != null) {
+        if (lklBlock != null && basBall != null && basBarra != null) {
             
             //dibuja la ball
             basBall.paint(graDibujo, this);
             
+            //dibuja la barra
+            basBarra.paint(graDibujo, this);
+            
             //Dibuja la imagen de los bloques
-            for (Base basMeth:lklMeth) {
+            for (Base basBlock:lklBlock) {
                 
                
-                basMeth.paint(graDibujo, this);
+                basBlock.paint(graDibujo, this);
             }
         }
     }
