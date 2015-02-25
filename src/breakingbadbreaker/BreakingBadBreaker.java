@@ -108,7 +108,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
         //la imagen de cada Truck
         imgTruck = Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("truck.png"));
+                .getResource("vidas.png"));
         
         // la imagen de ball
         imgBall = Toolkit.getDefaultToolkit().getImage(this.getClass()
@@ -471,7 +471,8 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
         graDibujo.setColor(Color.white); //Escribo en color rojo
         graDibujo.drawString("Vidas: ", 10, 60);   //Escribo vidas
-        graDibujo.drawString("Puntos: " + iScore, iWidth - 250, 60);  // escribo score
+        graDibujo.drawString("Nivel: "+ iNivel,iWidth - 350 ,60); // escribo el nivel
+        graDibujo.drawString("Puntos: " + iScore, iWidth - 200, 60);  // escribo score
         graDibujo.setFont(graDibujo.getFont().deriveFont(30.0f));
     }
     
