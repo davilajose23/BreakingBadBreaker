@@ -189,7 +189,7 @@ public class Base {
         }
     }
     
-        /*
+    /*
      * intersecta
      *
      * Metodo que checa si un Objeto intersecta a otro
@@ -214,6 +214,63 @@ public class Base {
         } 
         else {
             return false;
+        }
+    }
+    
+    /*
+     * intersectapor
+     *
+     * Metodo que checa si un Objeto intersecta a otro
+     *
+     * @param objObjeto es un objeto de la clase <code>Object</code>
+     * @return un int para saber por donde intersecta 
+     *1 = izq, 2 = der, 3 = abajo 4 = arriba
+     */
+    public int intersectapor(Object objObjeto) {
+        // si es un objeto
+        if (objObjeto instanceof Base ) {
+            
+            Base basObjeto = (Base) objObjeto;
+            // si intersecta por la der
+            if (this.getX() + this.getAncho() >= basObjeto.getX() &&
+                    this.getX() < basObjeto.getX() + basObjeto.getAncho() &&
+                    this.getY() <= basObjeto.getY() &&
+                    this.getY() + this.getAlto() >= basObjeto.getY()){
+                
+                return 2;
+            }
+            // si intersecta por la izq
+            if (this.getX() <= basObjeto.getX() + basObjeto.getAncho() &&
+                    this.getX() + this.getAncho() > basObjeto.getX() &&
+                    this.getY() <= basObjeto.getY() &&
+                    this.getY() + this.getAlto() >= basObjeto.getY()){
+                
+                return 1;
+            }
+            
+            // si intersecta por abajo
+            if (this.getY() + this.getAlto() >= basObjeto.getY() && 
+                    this.getY() < basObjeto.getY() &&
+                    this.getX() <= basObjeto.getX() && 
+                    this.getX()+ this.getAncho()  >= basObjeto.getX()){
+                
+                return 3;
+                
+            }
+            // si intersecta por arriba
+            if (this.getY() <=  basObjeto.getY() + basObjeto.getAlto() &&
+                    this.getY() + this.getAlto() > basObjeto.getY() &&
+                    this.getX() <= basObjeto.getX() && 
+                    this.getX()+ this.getAncho()  >= basObjeto.getX()){
+                
+                return 4;
+                
+            }
+            
+            return 0;
+        } 
+        else {
+            return 0;
         }
     }
 
