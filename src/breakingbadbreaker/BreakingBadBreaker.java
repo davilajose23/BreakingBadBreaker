@@ -31,12 +31,12 @@ import javax.swing.JFrame;
 public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener {
 
     
-    private final int iMAXANCHO = 10; // maximo numero de personajes por ancho
-    private final int iMAXALTO = 6;  // maxuimo numero de personajes por alto
+    private final int iMAXANCHO = 8; // maximo numero de personajes por ancho
+    private final int iMAXALTO = 5;  // maxuimo numero de personajes por alto
     private final int iHeight = 700; // alto del JFrame
     private final int iWidth = 1000; // ancho del JFrame
     
-    //private Base basMalo;         // Objeto malo
+    private Base basBall;         // Objeto Ball
     
     
     /* objetos para manejar el buffer del Applet y este no parpadee */
@@ -51,6 +51,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     private LinkedList<Base> lklMeth; //Lista de meths
     
     private Image imgMeth;
+    private Image imgBall;
     
     
     
@@ -70,18 +71,29 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         imgMeth = Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("walter.png"));
         
+        // la imagen de ball
+        imgBall = Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("hank.png"));
         
-        for(int iI = 0; iI < 10 ; iI++) {
-            int iPosRandX  = (int) (Math.random() * iWidth);
-            int iPosRandY  = (int) (Math.random() * iHeight);
+        basBall = new Base(iWidth / 2, 3 * iHeight / 4 , 
+                iWidth / 10 , iHeight / 7, imgBall);
+        
+        int iPosX  = 0;
+        int iPosY = 0;
+        
+        for(int iI = 0; iI < iMAXANCHO * 3 ; iI++) {
             
-            Base basMeth = new Base(iPosRandX, iPosRandY,
+         
+            Base basMeth = new Base(iPosX, iPosY,
                      iWidth / iMAXANCHO, iHeight / iMAXALTO,imgMeth);
-            //iPosRandX = (int) (Math.random() * (iWidth - 
-                      //  basMeth.getAncho()));
+           
+            iPosX += iWidth / iMAXANCHO;
+            if(iPosX == iWidth){
+                iPosX = 0;
+                iPosY += iHeight / iMAXALTO;
+            }
+           
             
-            
-           // basMeth.setX(iPosRandX);
             lklMeth.add(basMeth);
         }
             
@@ -190,8 +202,12 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     
     public void paint1 (Graphics graDibujo){
         
-        if (lklMeth != null) {
-            //Dibuja la imagen de los Juanitos
+        if (lklMeth != null && basBall != null) {
+            
+            //dibuja la ball
+            basBall.paint(graDibujo, this);
+            
+            //Dibuja la imagen de los bloques
             for (Base basMeth:lklMeth) {
                 
                
