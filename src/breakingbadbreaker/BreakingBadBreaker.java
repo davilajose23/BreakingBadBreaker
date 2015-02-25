@@ -170,21 +170,23 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
            movimientos y se vuelve a pintar todo
         */ 
         lTiempo = System.currentTimeMillis();
-        while (iCantBloques > 0) {
-            if(!bPause){
-                actualiza();
-                checaColision();
-                repaint();
+        while (true){
+            while (iCantBloques > 0 && iVidas > 0) {
+                if(!bPause){
+                    actualiza();
+                    checaColision();
+                    repaint();
+                }
+                try	{
+                    // El thread se duerme.
+                    Thread.sleep (20);
+                }
+                catch (InterruptedException iexError) {
+                    System.out.println("Hubo un error en el juego " + 
+                            iexError.toString());
+                }
             }
-            try	{
-                // El thread se duerme.
-                Thread.sleep (20);
-            }
-            catch (InterruptedException iexError) {
-                System.out.println("Hubo un error en el juego " + 
-                        iexError.toString());
-            }
-	}
+        }
     }
         
     
@@ -264,7 +266,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                 
                 
                 
-                basBlock.setX(-iWidth);
+                basBlock.setX(basBlock.getX()-iWidth);
                 iCantBloques--;
                 iScore += 10;
             }
@@ -407,7 +409,20 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
      */
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-        
+        if(keyEvent.getKeyCode() == KeyEvent.VK_ENTER){
+            if (iVidas == 0){
+                vuelveAEmpezar();
+            }
+        }
+        if(keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE){
+            iVidas = 0;
+            iCantBloques = 0;
+            for (Base basBloque : lklBlock){
+                if (basBloque.getX() >= 0){
+                    basBloque.setX(basBloque.getX() - iWidth);
+                }
+            }
+        }
         iTecla = 0;
     }
     /**
@@ -428,6 +443,17 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     	
         
         
+    }
+    
+    public void vuelveAEmpezar(){
+        iVidas = 5;
+        iScore = 0;
+        for (Base basBlock : lklBlock){
+            basBlock.setX(basBlock.getX() + iWidth);
+        }
+        iCantBloques = 30;
+        basBall.setX(iWidth / 2);
+        basBall.setY(3 * iHeight / 4);
     }
 
     
