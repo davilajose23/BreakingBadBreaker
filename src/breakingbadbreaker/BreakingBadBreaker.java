@@ -71,6 +71,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     private int iTecla;
     private int iPosXBarra;
     private int iPosYBarra;
+    private int iNivel;
     
     private Animacion aniHank;
     private long lTiempo;
@@ -89,6 +90,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         iVidas = 5;
         iScore = 0;
         bPause = false;
+        iNivel = 3;
         
         lklBlock = new LinkedList<Base>();   //Creo la lista de meth 
         lklTruck = new LinkedList<Base>();   // creo la lista de trucks
@@ -253,7 +255,8 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         }
         
         basBall.setX(basBall.getX() +  iDireccionX );
-        basBall.setY(basBall.getY() +  iDireccionY );
+        basBall.setY(basBall.getY() +  iDireccionY + 
+                (( iNivel * iDireccionY)/5));
         
         
         for(Base basTruck:lklTruck) {
@@ -344,6 +347,13 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                     basBlock.setImagen(imgBlock2);
                     iScore += 30;
                 }
+                
+                if(iCantBloques == 0){
+                    
+                    
+                    iNivel++;
+                }
+                
             }
                 
           
