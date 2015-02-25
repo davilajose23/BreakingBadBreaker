@@ -90,7 +90,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         iVidas = 5;
         iScore = 0;
         bPause = false;
-        iNivel = 6;
+        iNivel = 1;
         
         lklBlock = new LinkedList<Base>();   //Creo la lista de meth 
         lklTruck = new LinkedList<Base>();   // creo la lista de trucks
@@ -108,7 +108,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
         //la imagen de cada Truck
         imgTruck = Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("truck.png"));
+                .getResource("truck1.png"));
         
         // la imagen de ball
         imgBall = Toolkit.getDefaultToolkit().getImage(this.getClass()
@@ -501,7 +501,8 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
         graDibujo.setColor(Color.white); //Escribo en color rojo
         graDibujo.drawString("Vidas: ", 10, 60);   //Escribo vidas
-        graDibujo.drawString("Puntos: " + iScore, iWidth - 250, 60);  // escribo score
+        graDibujo.drawString("Nivel: "+ iNivel,iWidth - 350 ,60); // escribo el nivel
+        graDibujo.drawString("Puntos: " + iScore, iWidth - 200, 60);  // escribo score
         graDibujo.setFont(graDibujo.getFont().deriveFont(30.0f));
     }
     
