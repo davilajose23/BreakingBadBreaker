@@ -247,7 +247,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
      */
     public void checaColision(){
         
-        // checa cuando la bara se sale por la izq
+        // checa cuando la barra se sale por la izq
         if(basBarra.getX() < 0){
             basBarra.setX(0);
         }
@@ -273,6 +273,9 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
 
             iVidas--;
             // 1 vida menos
+            
+            //Hago que desaparezca unade las vidas
+            lklTruck.pop();
         }
         
         for(Base basBlock:lklBlock) {
@@ -447,6 +450,9 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                     basBloque.setX(basBloque.getX() - iWidth);
                 }
             }
+            while (!lklTruck.isEmpty()){
+                lklTruck.pop();
+            }
         }
         
         repaint();
@@ -499,11 +505,27 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         iVidas = 5;
         iScore = 0;
         for (Base basBlock : lklBlock){
-            basBlock.setX(basBlock.getX() + iWidth);
+            if(basBlock.getX() < 0){
+                basBlock.setX(basBlock.getX() + iWidth);
+            }
         }
         iCantBloques = 30;
         basBall.setX(iWidth / 2);
         basBall.setY(3 * iHeight / 4);
+        
+        int iPosX = 100;
+        for(int iI = 0; iI < iVidas; iI++) {
+            
+         
+            Base basTruck = new Base(iPosX, 30,
+                     iWidth / 12 , iHeight / 13,imgTruck);
+           
+            iPosX += iWidth / 12;
+
+            lklTruck.add(basTruck);
+        }
+        basBarra.setX(iWidth / 2 - basBarra.getAncho() / 2);
+        basBarra.setY(9 * iHeight / 10);
     }
 
     
