@@ -56,6 +56,10 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     private Image imgBarra;
     private Image imgTruck;
     
+    private Image imgBlock1;
+    private Image imgBlock2;
+    private Image imgBlock3;
+    
     private int iCantBloques;
     private int iVidas;
     private int iScore;
@@ -90,8 +94,16 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         lklTruck = new LinkedList<Base>();   // creo la lista de trucks
         
         //la imagen de cada Block
-        imgBlock = Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("walter.png"));
+        
+        imgBlock1 = Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("walter1.png"));
+        
+        imgBlock2 = Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("walter2.png"));
+        
+        imgBlock3 = Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("walter3.png"));
+        
         //la imagen de cada Truck
         imgTruck = Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("truck.png"));
@@ -99,7 +111,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         // la imagen de ball
         imgBall = Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("hank.png"));
-        // la imagen de ball
+        // la imagen de la barra
         imgBarra = Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("barra.png"));
         
@@ -142,9 +154,19 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
         for(int iI = 0; iI < iCantBloques; iI++) {
             
-         
+            int iRandom = (int) (Math.random() * 3 + 1);
             Base basBlock = new Base(iPosX, iPosY,
                      iWidth / iMAXANCHO, iHeight / iMAXALTO,imgBlock);
+            
+            if (iRandom == 1){
+                basBlock.setImagen(imgBlock1);
+            }
+            else if (iRandom == 2){
+                basBlock.setImagen(imgBlock2);
+            }
+            else if (iRandom == 3){
+                basBlock.setImagen(imgBlock3);
+            }
            
             iPosX += iWidth / iMAXANCHO;
             if(iPosX == iWidth){
@@ -307,11 +329,19 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                     iDireccionX *= -1;
                 }
                 
-                
-                
-                basBlock.setX(basBlock.getX()-iWidth);
-                iCantBloques--;
-                iScore += 10;
+                if (basBlock.getImagen() == imgBlock1){
+                    basBlock.setX(basBlock.getX()-iWidth);
+                    iCantBloques--;
+                    iScore += 10;
+                }
+                else if (basBlock.getImagen() == imgBlock2){
+                    basBlock.setImagen(imgBlock1);
+                    iScore += 20;
+                }
+                else if (basBlock.getImagen() == imgBlock3){
+                    basBlock.setImagen(imgBlock2);
+                    iScore += 30;
+                }
             }
                 
           
@@ -524,8 +554,18 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         iVidas = 5;
         iScore = 0;
         for (Base basBlock : lklBlock){
+            int iRandom = (int) (Math.random() * 3 + 1);
             if(basBlock.getX() < 0){
                 basBlock.setX(basBlock.getX() + iWidth);
+            }
+            if (iRandom == 1){
+                basBlock.setImagen(imgBlock1);
+            }
+            else if (iRandom == 2){
+                basBlock.setImagen(imgBlock2);
+            }
+            else if (iRandom == 3){
+                basBlock.setImagen(imgBlock3);
             }
         }
         iCantBloques = 30;
