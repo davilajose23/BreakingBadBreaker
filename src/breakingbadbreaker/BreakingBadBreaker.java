@@ -221,66 +221,45 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             
             if(basBlock.intersecta(basBall)){
                 
-                // si intersecta por abajo
-                if (basBlock.getY() + basBlock.getAlto() <= 
-                        basBall.getY() - iDireccionY || 
-                        basBlock.getY() >= basBall.getY() - iDireccionY){
-                
+                // intersecta por abajo o por arriba
+                if(basBlock.intersectapor(basBall, iDireccionX, iDireccionY) == 1){
+                    
                     iDireccionY *= -1;
-   
-                
                 }
-                // si intersecta por izq
-                if (basBlock.getX() + basBlock.getAncho() <= 
-                    basBall.getX() - iDireccionX ||
-                        basBlock.getX() >= basBall.getX() - iDireccionX){
-                
+                // intersecta por abajo o por arriba
+                if(basBlock.intersectapor(basBall, iDireccionX, iDireccionY) == 2){
+                    
                     iDireccionX *= -1;
-
                 }
-                basBlock.setX(-iWidth);
-                iCantBloques--;
-                iScore += 10;
-            }
- /*
-            // checa por que lado intersecta
-            int iChoque = basBlock.intersectapor(basBall);
-           
-            //izq o der
-            if(iChoque == 1 || iChoque == 2){
-                iDireccionX *= -1;
-                basBlock.setX(-iWidth);
-                iCantBloques--;
-                iScore += 10;
-            }
-            // arriba o abajo
-            if(iChoque == 3 || iChoque == 4){
                 
-                //iCantBloques--;
+                
+                
+                basBlock.setX(-iWidth);
+                iCantBloques--;
+                iScore += 10;
             }
-  */
+                
+          
            
         }
         
         
         if(basBarra.intersecta(basBall)){
             
+            
+            
             int iPosX1 = (basBall.getX()  ) - basBarra.getX();
             
             iPosX1 *= 10;
             double iPorcentaje = 
-                    ( iPosX1 / (basBarra.getAncho()-basBall.getAncho() ) )
-                    ;//- .65; //- .65;
-           
-            
+                    ( iPosX1 / (basBarra.getAncho()-basBall.getAncho() ) );
+                    
+         
             iDireccionX = (int) (iPorcentaje - 6);
-            iDireccionY *= -1;
+            iDireccionY *= -1; 
         }
         
-        
-    
-        
-        
+  
         
     }
 
