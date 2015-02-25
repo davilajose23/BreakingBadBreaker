@@ -80,7 +80,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
        
         iTecla = 0;
-        iDireccionX = 5;
+        iDireccionX = 0;
         iDireccionY = -5;
         iVidas = 5;
         iScore = 0;
@@ -106,10 +106,14 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
         basBall = new Base(iWidth / 2, 3 * iHeight / 4 , 
              //   iWidth / 10 , iHeight / 7, imgBall);
-                 iWidth / 15 , iHeight / 12, imgBall);
+                 iWidth / 15, iHeight / 12, imgBall);
+        
+        basBall.setX(basBall.getX() - basBall.getAncho() / 2);
         
         basBarra = new Base(iWidth / 2, 9 * iHeight / 10 , 
                 iWidth / 3 , iHeight / 10, imgBarra);
+        
+        basBarra.setX(basBarra.getX() - basBarra.getAncho() / 2);
         
         //Creo animacion
         aniHank = new Animacion();
@@ -450,7 +454,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             
         }
         if(keyEvent.getKeyCode() == KeyEvent.VK_ENTER){
-            if (iVidas == 0){
+            if (iVidas == 0 || iCantBloques == 0){
                 vuelveAEmpezar();
             }
         }
@@ -514,6 +518,9 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     }
     
     public void vuelveAEmpezar(){
+        while (!lklTruck.isEmpty()){
+                lklTruck.pop();
+        }
         iVidas = 5;
         iScore = 0;
         for (Base basBlock : lklBlock){
@@ -522,13 +529,11 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             }
         }
         iCantBloques = 30;
-        basBall.setX(iWidth / 2);
+        basBall.setX(iWidth / 2 - basBall.getAncho() / 2);
         basBall.setY(3 * iHeight / 4);
         
         int iPosX = 100;
         for(int iI = 0; iI < iVidas; iI++) {
-            
-         
             Base basTruck = new Base(iPosX, 30,
                      iWidth / 12 , iHeight / 13,imgTruck);
            
@@ -537,7 +542,9 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             lklTruck.add(basTruck);
         }
         basBarra.setX(iWidth / 2 - basBarra.getAncho() / 2);
-        basBarra.setY(9 * iHeight / 10);
+        
+        iDireccionX = 0;
+        iDireccionY = -5;
     }
 
     
