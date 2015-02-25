@@ -31,8 +31,8 @@ import javax.swing.JFrame;
 public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener {
 
     
-    private final int iMAXANCHO = 8; // maximo numero de personajes por ancho
-    private final int iMAXALTO = 5;  // maxuimo numero de personajes por alto
+    private final int iMAXANCHO = 10; // maximo numero de personajes por ancho
+    private final int iMAXALTO = 7;  // maxuimo numero de personajes por alto
     private final int iHeight = 700; // alto del JFrame
     private final int iWidth = 1000; // ancho del JFrame
     
@@ -55,6 +55,8 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     private Image imgBarra;
     
     private int iCantBloques;
+    private int iVidas;
+    private double iScore;
     
     private int iPosXBall;
     private int iPosYBall;
@@ -73,8 +75,10 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
        
         iTecla = 0;
-        iDireccionX = 1;
-        iDireccionY = -1;
+        iDireccionX = 5;
+        iDireccionY = -5;
+        iVidas = 5;
+        iScore = 0;
         
         lklBlock = new LinkedList<Base>();   //Creo la lista de meth
         
@@ -91,7 +95,8 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
         
         basBall = new Base(iWidth / 2, 3 * iHeight / 4 , 
-                iWidth / 10 , iHeight / 7, imgBall);
+             //   iWidth / 10 , iHeight / 7, imgBall);
+                 iWidth / 15 , iHeight / 12, imgBall);
         
         basBarra = new Base(iWidth / 2, 9 * iHeight / 10 , 
                 iWidth / 3 , iHeight / 10, imgBarra);
@@ -171,8 +176,8 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             basBarra.setX(basBarra.getX() + 10);
         }
         
-        basBall.setX(basBall.getX() + ( 2 * iDireccionX ));
-        basBall.setY(basBall.getY() + ( 2 * iDireccionY ));
+        basBall.setX(basBall.getX() +  iDireccionX );
+        basBall.setY(basBall.getY() +  iDireccionY );
             
     }
     
@@ -198,8 +203,57 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             iDireccionY *= -1;
         }
         if( basBall.getY() + basBall.getAlto() > iHeight){
+            
+            // vuelve a aparecer la bola
+            basBall.setX(iWidth / 2);
+            basBall.setY(3 * iHeight /4 );
+            iDireccionX = 5;
+            iDireccionY = -5;
+
+
             // 1 vida menos
         }
+        
+        for(Base basBlock:lklBlock) {
+           
+            // checa por que lado intersecta
+            int iChoque = basBlock.intersectapor(basBall);
+           
+            //izq o der
+            if(iChoque == 1 || iChoque == 2){
+                iDireccionX *= -1;
+                basBlock.setX(-iWidth);
+                iCantBloques--;
+                iScore += 10;
+            }
+            // arriba o abajo
+            if(iChoque == 3 || iChoque == 4){
+                iDireccionY *= -1;
+                basBlock.setX(-iWidth);
+                iScore += 10;
+                //iCantBloques--;
+            }
+  
+           
+        }
+        
+        
+        if(basBarra.intersecta(basBall)){
+            
+            int iPosX1 = (basBall.getX()  ) - basBarra.getX();
+            
+            iPosX1 *= 10;
+            double iPorcentaje = 
+                    ( iPosX1 / (basBarra.getAncho()-basBall.getAncho() ) )
+                    ;//- .65; //- .65;
+           
+            
+            iDireccionX = (int) (iPorcentaje - 6);
+            iDireccionY *= -1;
+        }
+        
+        
+    
         
         
         
@@ -262,6 +316,15 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                 basBlock.paint(graDibujo, this);
             }
         }
+        else {
+                //Da un mensaje mientras se carga el dibujo	
+                graDibujo.drawString("No se cargo la imagen..", 20, 20);
+        }
+        
+        graDibujo.setColor(Color.white); //Escribo en color rojo
+        graDibujo.drawString("Vidas: " + iVidas, 10, 60);   //Escribo vidas
+        graDibujo.drawString("Puntos: " + iScore, 10, 80);  // escribo score
+        graDibujo.setFont(graDibujo.getFont().deriveFont(30.0f));
     }
     
     /**
