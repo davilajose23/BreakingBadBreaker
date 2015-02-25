@@ -107,23 +107,23 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
         //Creo animacion
         aniHank = new Animacion();
-        long lDuracion = 60;
+        long lDuracion = 125;
         aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("HankA.png")), lDuracion);
+                .getResource("Images/HankA.png")), lDuracion);
         aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("HankB.png")), lDuracion);
+                .getResource("Images/HankB.png")), lDuracion);
         aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("HankC.png")), lDuracion);
+                .getResource("Images/HankC.png")), lDuracion);
         aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("HankD.png")), lDuracion);
+                .getResource("Images/HankD.png")), lDuracion);
         aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("HankE.png")), lDuracion);
+                .getResource("Images/HankE.png")), lDuracion);
         aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("HankF.png")), lDuracion);
+                .getResource("Images/HankF.png")), lDuracion);
         aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("HankG.png")), lDuracion);
+                .getResource("Images/HankG.png")), lDuracion);
         aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("HankH.png")), lDuracion);
+                .getResource("Images/HankH.png")), lDuracion);
         
         int iPosX  = 0;
         int iPosY = 80;
