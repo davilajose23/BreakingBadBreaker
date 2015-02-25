@@ -49,10 +49,12 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     
     // Se declaran las variables a usar
     private LinkedList<Base> lklBlock; //Lista de meths
+    private LinkedList<Base> lklTruck; // Lista de trucks
     
     private Image imgBlock;
     private Image imgBall;
     private Image imgBarra;
+    private Image imgTruck;
     
     private int iCantBloques;
     private int iVidas;
@@ -81,11 +83,15 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         iScore = 0;
         bPause = false;
         
-        lklBlock = new LinkedList<Base>();   //Creo la lista de meth
+        lklBlock = new LinkedList<Base>();   //Creo la lista de meth 
+        lklTruck = new LinkedList<Base>();   // creo la lista de trucks
         
         //la imagen de cada Block
         imgBlock = Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("walter.png"));
+        //la imagen de cada Truck
+        imgTruck = Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("truck.png"));
         
         // la imagen de ball
         imgBall = Toolkit.getDefaultToolkit().getImage(this.getClass()
@@ -121,6 +127,18 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
            
             
             lklBlock.add(basBlock);
+        }
+         
+        iPosX = 100;
+        for(int iI = 0; iI < iVidas; iI++) {
+            
+         
+            Base basTruck = new Base(iPosX, 30,
+                     iWidth / 12 , iHeight / 13,imgTruck);
+           
+            iPosX += iWidth / 12;
+
+            lklTruck.add(basTruck);
         }
             
         //Hago que se active con teclado
@@ -181,6 +199,15 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
         basBall.setX(basBall.getX() +  iDireccionX );
         basBall.setY(basBall.getY() +  iDireccionY );
+        
+        
+        for(Base basTruck:lklTruck) {
+        
+            basTruck.setX(basTruck.getX() + 3);
+            
+            
+        }
+        
             
     }
     
@@ -262,7 +289,13 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             iDireccionY *= -1; 
         }
         
-  
+        for(Base basTruck:lklTruck) {
+        
+            if(basTruck.getX() > 600){
+                basTruck.setX(30);
+            }
+            
+        }
         
     }
 
@@ -284,10 +317,10 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
         Image imgFondo = Toolkit.getDefaultToolkit().getImage(this.getClass().
                 getResource("fondo.png"));
-        
+       
         graGrafica.drawImage(imgFondo, 0,0,iWidth,iHeight, this);
         
-        graGrafica.drawLine(0, 80, iWidth, 80);
+        
         // Actualiza el Foreground.
         graGrafica.setColor (getForeground());
         paint1(graGrafica);
@@ -309,7 +342,24 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     
     public void paint1 (Graphics graDibujo){
         
-        if (lklBlock != null && basBall != null && basBarra != null) {
+        if (lklBlock != null && basBall != null && basBarra != null
+                && lklTruck != null) {
+            
+            //Dibuja la imagen de las trucks
+            for (Base basTruck:lklTruck) {
+
+                basTruck.paint(graDibujo, this);
+            }
+
+            
+            graDibujo.setColor(Color.white); //Escribo en color blanco
+            
+            Image imgFondo1 = Toolkit.getDefaultToolkit().getImage(this.getClass().
+                getResource("fondo1.png"));
+            
+            graDibujo.drawImage(imgFondo1, 0,0,iWidth,iHeight, this);
+           
+            graDibujo.drawLine(0, 80, iWidth, 80);
             
             //dibuja la ball
             basBall.paint(graDibujo, this);
@@ -330,7 +380,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         }
         
         graDibujo.setColor(Color.white); //Escribo en color rojo
-        graDibujo.drawString("Vidas: " + iVidas, 10, 60);   //Escribo vidas
+        graDibujo.drawString("Vidas: ", 10, 60);   //Escribo vidas
         graDibujo.drawString("Puntos: " + iScore, iWidth - 250, 60);  // escribo score
         graDibujo.setFont(graDibujo.getFont().deriveFont(30.0f));
     }
