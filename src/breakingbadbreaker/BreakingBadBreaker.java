@@ -313,7 +313,9 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
 
             iVidas--;
             // 1 vida menos
-            
+            if (iVidas == 0){
+                iNivel = 1;
+            }
             //Hago que desaparezca unade las vidas
             lklTruck.pop();
         }
@@ -349,9 +351,24 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                 }
                 
                 if(iCantBloques == 0){
-                    
-                    
                     iNivel++;
+                    int iAux = iScore;
+                    int iAux2 = iVidas;
+                    vuelveAEmpezar();
+                    iScore = iAux;
+                    iVidas = iAux2;
+                    int iPosX = 100;
+                    while (!lklTruck.isEmpty()){
+                        lklTruck.pop();
+                    }
+                    for(int iI = 0; iI < iVidas; iI++) {
+                        Base basTruck = new Base(iPosX, 30,
+                                 iWidth / 12 , iHeight / 13,imgTruck);
+
+                        iPosX += iWidth / 12;
+
+                        lklTruck.add(basTruck);
+                    }
                 }
                 
             }
