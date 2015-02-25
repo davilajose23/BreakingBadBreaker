@@ -189,21 +189,21 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         */ 
         lTiempo = System.currentTimeMillis();
         while (true){
-            while (iCantBloques > 0 && iVidas > 0) {
-                if(!bPause){
-                    actualiza();
-                    checaColision();
-                    repaint();
-                }
-                try	{
-                    // El thread se duerme.
-                    Thread.sleep (20);
-                }
-                catch (InterruptedException iexError) {
-                    System.out.println("Hubo un error en el juego " + 
-                            iexError.toString());
-                }
+           
+            if(!bPause && iCantBloques > 0 && iVidas > 0){
+                actualiza();
+                checaColision();
+                repaint();
             }
+            try	{
+            // El thread se duerme.
+                Thread.sleep (20);
+            }
+            catch (InterruptedException iexError) {
+                System.out.println("Hubo un error en el juego " + 
+                        iexError.toString());
+            }
+
         }
     }
         
@@ -434,7 +434,20 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             bPause = !bPause;
             
         }
-        
+        if(keyEvent.getKeyCode() == KeyEvent.VK_ENTER){
+            if (iVidas == 0){
+                vuelveAEmpezar();
+            }
+        }
+        if(keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE){
+            iVidas = 0;
+            iCantBloques = 0;
+            for (Base basBloque : lklBlock){
+                if (basBloque.getX() >= 0){
+                    basBloque.setX(basBloque.getX() - iWidth);
+                }
+            }
+        }
         
         repaint();
         
@@ -459,20 +472,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
      */
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-        if(keyEvent.getKeyCode() == KeyEvent.VK_ENTER){
-            if (iVidas == 0){
-                vuelveAEmpezar();
-            }
-        }
-        if(keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE){
-            iVidas = 0;
-            iCantBloques = 0;
-            for (Base basBloque : lklBlock){
-                if (basBloque.getX() >= 0){
-                    basBloque.setX(basBloque.getX() - iWidth);
-                }
-            }
-        }
+        
         iTecla = 0;
     }
     /**
