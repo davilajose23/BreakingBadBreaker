@@ -90,7 +90,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         iVidas = 5;
         iScore = 0;
         bPause = false;
-        iNivel = 3;
+        iNivel = 6;
         
         lklBlock = new LinkedList<Base>();   //Creo la lista de meth 
         lklTruck = new LinkedList<Base>();   // creo la lista de trucks
@@ -320,20 +320,33 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             lklTruck.pop();
         }
         
+        boolean bChoco = false;
         for(Base basBlock:lklBlock) {
            
             
             if(basBlock.intersecta(basBall)){
                 
+                int iAuxDirY = iDireccionY + (iNivel * iDireccionY / 5);
                 // intersecta por abajo o por arriba
-                if(basBlock.intersectapor(basBall, iDireccionX, iDireccionY) == 1){
-                    
-                    iDireccionY *= -1;
+                if(basBlock.intersectapor(basBall, iDireccionX, iAuxDirY) == 1){
+                    if (basBlock.getY() < basBall.getY()){
+                        basBall.setY(basBlock.getY() + basBlock.getAlto());
+                    }
+                    else {
+                        basBall.setY(basBlock.getY() - basBall.getAlto());                    
+                    }
+                    if (!bChoco){
+                        iDireccionY *= -1;
+                        bChoco = true;
+                    }
                 }
-                // intersecta por abajo o por arriba
-                if(basBlock.intersectapor(basBall, iDireccionX, iDireccionY) == 2){
+                // intersecta por izquierda o derecha
+                else if(basBlock.intersectapor(basBall, iDireccionX, iAuxDirY) == 2){
                     
-                    iDireccionX *= -1;
+                    if(!bChoco){
+                        iDireccionX *= -1;
+                        bChoco = true;
+                    }
                 }
                 
                 if (basBlock.getImagen() == imgBlock1){
