@@ -223,49 +223,36 @@ public class Base {
      * Metodo que checa si un Objeto intersecta a otro
      *
      * @param objObjeto es un objeto de la clase <code>Object</code>
+     * @param iDireccion es un int con la direccion del objeto
      * @return un int para saber por donde intersecta 
      *1 = izq, 2 = der, 3 = abajo 4 = arriba
      */
-    public int intersectapor(Object objObjeto) {
-        // si es un objeto
-        if (objObjeto instanceof Base ) {
+    public int intersectapor(Object objObjeto, int iDireccionX, int iDireccionY) {
+        
+        // si es un objeto e intersecta 
+        if (objObjeto instanceof Base && this.intersecta(objObjeto)) {
             
             Base basObjeto = (Base) objObjeto;
-            // si intersecta por la der
-            if (this.getX() + this.getAncho() >= basObjeto.getX() &&
-                    this.getX() < basObjeto.getX() + basObjeto.getAncho() &&
-                    this.getY() <= basObjeto.getY() &&
-                    this.getY() + this.getAlto() >= basObjeto.getY()){
-                
-                return 2;
-            }
-            // si intersecta por la izq
-            if (this.getX() <= basObjeto.getX() + basObjeto.getAncho() &&
-                    this.getX() + this.getAncho() > basObjeto.getX() &&
-                    this.getY() <= basObjeto.getY() &&
-                    this.getY() + this.getAlto() >= basObjeto.getY()){
+            
+            // si intersecta por abajo o por arriba
+            if (this.getY() + this.getAlto() <= 
+                    basObjeto.getY() - iDireccionY || 
+                    this.getY() >= basObjeto.getY() - iDireccionY){
                 
                 return 1;
+   
+                
+            }
+            // si intersecta por izq o derecha
+            if (this.getX() + this.getAncho() <= 
+                    basObjeto.getX() - iDireccionX ||
+                    this.getX() >= basObjeto.getX() - iDireccionX){
+                
+                return 2;
+
             }
             
-            // si intersecta por abajo
-            if (this.getY() + this.getAlto() >= basObjeto.getY() && 
-                    this.getY() < basObjeto.getY() &&
-                    this.getX() <= basObjeto.getX() && 
-                    this.getX()+ this.getAncho()  >= basObjeto.getX()){
-                
-                return 3;
-                
-            }
-            // si intersecta por arriba
-            if (this.getY() <=  basObjeto.getY() + basObjeto.getAlto() &&
-                    this.getY() + this.getAlto() > basObjeto.getY() &&
-                    this.getX() <= basObjeto.getX() && 
-                    this.getX()+ this.getAncho()  >= basObjeto.getX()){
-                
-                return 4;
-                
-            }
+            
             
             return 0;
         } 
