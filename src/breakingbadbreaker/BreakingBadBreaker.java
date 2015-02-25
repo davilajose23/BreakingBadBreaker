@@ -56,6 +56,13 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     
     private int iCantBloques;
     
+    private int iPosXBall;
+    private int iPosYBall;
+    private int iDireccionX;
+    private int iDireccionY;
+    private int iTecla;
+    private int iPosXBarra;
+    private int iPosYBarra;
     
    /**
      * Constructor de la clase <code>JuegoJFrame</code>.
@@ -65,7 +72,9 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
 	public BreakingBadBreaker() {
         
        
-        
+        iTecla = 0;
+        iDireccionX = 1;
+        iDireccionY = -1;
         
         lklBlock = new LinkedList<Base>();   //Creo la lista de meth
         
@@ -90,7 +99,9 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         int iPosX  = 0;
         int iPosY = 0;
         
-        for(int iI = 0; iI < iMAXANCHO * 3 ; iI++) {
+        iCantBloques = iMAXANCHO * 3  ;
+        
+        for(int iI = 0; iI < iCantBloques; iI++) {
             
          
             Base basBlock = new Base(iPosX, iPosY,
@@ -129,7 +140,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
            se checa si hubo colisiones para desaparecer jugadores o corregir
            movimientos y se vuelve a pintar todo
         */ 
-        while (true) {
+        while (iCantBloques > 0) {
             actualiza();
             checaColision();
             repaint();
@@ -153,6 +164,15 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     public void actualiza(){
             
             
+        if(iTecla == 1){
+            basBarra.setX(basBarra.getX() - 10);
+        }
+        if(iTecla == 2){
+            basBarra.setX(basBarra.getX() + 10);
+        }
+        
+        basBall.setX(basBall.getX() + ( 2 * iDireccionX ));
+        basBall.setY(basBall.getY() + ( 2 * iDireccionY ));
             
     }
     
@@ -163,7 +183,23 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
      */
     public void checaColision(){
         
+       
+        if(basBarra.getX() < 0){
+            basBarra.setX(0);
+        }
+        if(basBarra.getX() + basBarra.getAncho() > iWidth){
+            basBarra.setX(iWidth - basBarra.getAncho());
+        }
         
+        if(basBall.getX() <0 || basBall.getX() + basBall.getAncho() > iWidth  ){
+            iDireccionX *= -1;
+        }
+        if(basBall.getY() <0  ){
+            iDireccionY *= -1;
+        }
+        if( basBall.getY() + basBall.getAlto() > iHeight){
+            // 1 vida menos
+        }
         
         
         
@@ -231,10 +267,18 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     /**
      * Metodo <I>keyPressed</I> sobrescrito de la interface <code>KeyListener</code>.<P>
      * En este metodo maneja el evento que se genera al presionar cualquier la tecla.
-     * @param keyevent es el <code>evento</code> generado al presionar las teclas.
+     * @param keyEvent es el <code>evento</code> generado al presionar las teclas.
      */
     @Override
-    public void keyPressed(KeyEvent keyevent) {
+    public void keyPressed(KeyEvent keyEvent) {
+        
+        
+        if (keyEvent.getKeyCode() == KeyEvent.VK_RIGHT) { 
+            iTecla = 2;
+        }
+        if (keyEvent.getKeyCode() == KeyEvent.VK_LEFT) { 
+            iTecla = 1;
+        }
         
         
         repaint();
@@ -245,22 +289,23 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     /**
      * Metodo <I>keyTyped</I> sobrescrito de la interface <code>KeyListener</code>.<P>
      * En este metodo maneja el evento que se genera al presionar una tecla que no es de accion.
-     * @param keyevent es el <code>evento</code> que se genera en al presionar las teclas.
+     * @param keyEvent es el <code>evento</code> que se genera en al presionar las teclas.
      */
     
     @Override
-    public void keyTyped(KeyEvent keyevent) {
+    public void keyTyped(KeyEvent keyEvent) {
         
     }
     
     /**
      * Metodo <I>keyReleased</I> sobrescrito de la interface <code>KeyListener</code>.<P>
      * En este metodo maneja el evento que se genera al soltar la tecla presionada.
-     * @param e es el <code>evento</code> que se genera en al soltar las teclas.
+     * @param keyEvent es el <code>evento</code> que se genera en al soltar las teclas.
      */
     @Override
-    public void keyReleased(KeyEvent keyevent) {
+    public void keyReleased(KeyEvent keyEvent) {
         
+        iTecla = 0;
     }
     /**
      * Metodo que lee a informacion de un archivo.
