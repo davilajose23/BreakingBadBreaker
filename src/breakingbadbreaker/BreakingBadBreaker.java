@@ -188,13 +188,15 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
      */
     public void checaColision(){
         
-       
+        // checa cuando la bara se sale por la izq
         if(basBarra.getX() < 0){
             basBarra.setX(0);
         }
+        // checa cuando la barra se sale por la derecha
         if(basBarra.getX() + basBarra.getAncho() > iWidth){
             basBarra.setX(iWidth - basBarra.getAncho());
         }
+        
         
         if(basBall.getX() <0 || basBall.getX() + basBall.getAncho() > iWidth  ){
             iDireccionX *= -1;
@@ -210,12 +212,37 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             iDireccionX = 5;
             iDireccionY = -5;
 
-
+            iVidas--;
             // 1 vida menos
         }
         
         for(Base basBlock:lklBlock) {
            
+            
+            if(basBlock.intersecta(basBall)){
+                
+                // si intersecta por abajo
+                if (basBlock.getY() + basBlock.getAlto() <= 
+                        basBall.getY() - iDireccionY || 
+                        basBlock.getY() >= basBall.getY() - iDireccionY){
+                
+                    iDireccionY *= -1;
+   
+                
+                }
+                // si intersecta por izq
+                if (basBlock.getX() + basBlock.getAncho() <= 
+                    basBall.getX() - iDireccionX ||
+                        basBlock.getX() >= basBall.getX() - iDireccionX){
+                
+                    iDireccionX *= -1;
+
+                }
+                basBlock.setX(-iWidth);
+                iCantBloques--;
+                iScore += 10;
+            }
+ /*
             // checa por que lado intersecta
             int iChoque = basBlock.intersectapor(basBall);
            
@@ -228,12 +255,10 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             }
             // arriba o abajo
             if(iChoque == 3 || iChoque == 4){
-                iDireccionY *= -1;
-                basBlock.setX(-iWidth);
-                iScore += 10;
+                
                 //iCantBloques--;
             }
-  
+  */
            
         }
         
@@ -322,8 +347,8 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         }
         
         graDibujo.setColor(Color.white); //Escribo en color rojo
-        graDibujo.drawString("Vidas: " + iVidas, 10, 60);   //Escribo vidas
-        graDibujo.drawString("Puntos: " + iScore, 10, 80);  // escribo score
+        graDibujo.drawString("Vidas: " + iVidas, 10, iHeight-80);   //Escribo vidas
+        graDibujo.drawString("Puntos: " + iScore, 10,iHeight- 60);  // escribo score
         graDibujo.setFont(graDibujo.getFont().deriveFont(30.0f));
     }
     
