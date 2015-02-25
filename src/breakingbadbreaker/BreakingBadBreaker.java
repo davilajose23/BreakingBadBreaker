@@ -56,8 +56,8 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     
     private int iCantBloques;
     private int iVidas;
-    private double iScore;
-    
+    private int iScore;
+    private boolean bPause;
     private int iPosXBall;
     private int iPosYBall;
     private int iDireccionX;
@@ -82,6 +82,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         iDireccionY = -5;
         iVidas = 5;
         iScore = 0;
+        bPause = false;
         
         lklBlock = new LinkedList<Base>();   //Creo la lista de meth
         
@@ -125,7 +126,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                 .getResource("HankH.png")), lDuracion);
         
         int iPosX  = 0;
-        int iPosY = 0;
+        int iPosY = 80;
         
         iCantBloques = iMAXANCHO * 3  ;
         
@@ -170,9 +171,11 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         */ 
         lTiempo = System.currentTimeMillis();
         while (iCantBloques > 0) {
-            actualiza();
-            checaColision();
-            repaint();
+            if(!bPause){
+                actualiza();
+                checaColision();
+                repaint();
+            }
             try	{
                 // El thread se duerme.
                 Thread.sleep (20);
@@ -225,10 +228,10 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         }
         
         
-        if(basBall.getX() <0 || basBall.getX() + basBall.getAncho() > iWidth  ){
+        if(basBall.getX() < 0 || basBall.getX() + basBall.getAncho() > iWidth  ){
             iDireccionX *= -1;
         }
-        if(basBall.getY() <0  ){
+        if(basBall.getY() < 80  ){
             iDireccionY *= -1;
         }
         if( basBall.getY() + basBall.getAlto() > iHeight){
@@ -311,6 +314,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
         graGrafica.drawImage(imgFondo, 0,0,iWidth,iHeight, this);
         
+        graGrafica.drawLine(0, 80, iWidth, 80);
         // Actualiza el Foreground.
         graGrafica.setColor (getForeground());
         paint1(graGrafica);
@@ -353,8 +357,8 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         }
         
         graDibujo.setColor(Color.white); //Escribo en color rojo
-        graDibujo.drawString("Vidas: " + iVidas, 10, iHeight-80);   //Escribo vidas
-        graDibujo.drawString("Puntos: " + iScore, 10,iHeight- 60);  // escribo score
+        graDibujo.drawString("Vidas: " + iVidas, 10, 60);   //Escribo vidas
+        graDibujo.drawString("Puntos: " + iScore, iWidth - 250, 60);  // escribo score
         graDibujo.setFont(graDibujo.getFont().deriveFont(30.0f));
     }
     
@@ -367,11 +371,16 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     public void keyPressed(KeyEvent keyEvent) {
         
         
-        if (keyEvent.getKeyCode() == KeyEvent.VK_RIGHT) { 
+        if(keyEvent.getKeyCode() == KeyEvent.VK_RIGHT) { 
             iTecla = 2;
         }
-        if (keyEvent.getKeyCode() == KeyEvent.VK_LEFT) { 
+        if(keyEvent.getKeyCode() == KeyEvent.VK_LEFT) { 
             iTecla = 1;
+        }
+        if(keyEvent.getKeyCode() == KeyEvent.VK_P){
+            
+            bPause = !bPause;
+            
         }
         
         
