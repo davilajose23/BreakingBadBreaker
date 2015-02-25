@@ -301,10 +301,12 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         if( basBall.getY() + basBall.getAlto() > iHeight){
             
             // vuelve a aparecer la bola
-            basBall.setX(iWidth / 2);
+            basBall.setX(iWidth / 2 - basBall.getAncho() / 2);
             basBall.setY(3 * iHeight /4 );
-            iDireccionX = 5;
+            iDireccionX = 0;
             iDireccionY = -5;
+            
+            basBarra.setX(iWidth / 2 - basBarra.getAncho() /2);
 
             iVidas--;
             // 1 vida menos
