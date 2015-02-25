@@ -90,7 +90,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         iVidas = 5;
         iScore = 0;
         bPause = false;
-        iNivel = 3;
+        iNivel = 1;
         
         lklBlock = new LinkedList<Base>();   //Creo la lista de meth 
         lklTruck = new LinkedList<Base>();   // creo la lista de trucks
@@ -108,7 +108,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
         //la imagen de cada Truck
         imgTruck = Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("vidas.png"));
+                .getResource("truck1.png"));
         
         // la imagen de ball
         imgBall = Toolkit.getDefaultToolkit().getImage(this.getClass()
