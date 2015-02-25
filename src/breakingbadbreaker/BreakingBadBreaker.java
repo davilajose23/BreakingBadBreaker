@@ -257,11 +257,20 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         }
         
         
-        if(basBall.getX() < 0 || basBall.getX() + basBall.getAncho() > iWidth  ){
+        if(basBall.getX() < 0 ){    //Ball Se sale por la izquierda
             iDireccionX *= -1;
+            basBall.setX(0);
         }
+        
+        //Ball Se sale por la derecha
+        if(basBall.getX() + basBall.getAncho() > iWidth){
+            iDireccionX *= -1;
+            basBall.setX(iWidth - basBall.getAncho());
+        }
+        //Ball se sale por arriba
         if(basBall.getY() < 80  ){
             iDireccionY *= -1;
+            basBall.setY(80);
         }
         if( basBall.getY() + basBall.getAlto() > iHeight){
             
@@ -310,15 +319,18 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             
             
             
-            int iPosX1 = (basBall.getX()  ) - basBarra.getX();
+            int iPosX1 = ((basBall.getX() + basBall.getAncho() / 2  ) - 
+                    (basBarra.getX() + basBarra.getAncho() / 2));
             
             iPosX1 *= 10;
             double iPorcentaje = 
                     ( iPosX1 / (basBarra.getAncho()-basBall.getAncho() ) );
                     
          
-            iDireccionX = (int) (iPorcentaje - 6);
+            iDireccionX = (int) (iPorcentaje);
             iDireccionY *= -1; 
+            
+            basBall.setY(basBarra.getY() - basBall.getAlto());
         }
         
         for(Base basTruck:lklTruck) {
