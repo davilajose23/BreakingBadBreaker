@@ -555,6 +555,13 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
 
 
             paint1(graGrafica);
+            
+            Image imgPausa = Toolkit.getDefaultToolkit().getImage(this.getClass().
+                    getResource("pausa.png"));
+            if(bPause){
+                graGrafica.drawImage(imgPausa, (iWidth / 2) - 320 ,
+                    (iHeight / 2) - 180, this);
+            }
          }
          else{   
              // dibuja la imagen del menu
