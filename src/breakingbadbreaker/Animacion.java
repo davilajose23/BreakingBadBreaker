@@ -30,7 +30,7 @@ public class Animacion{
          * 
          */
         
-	public Animacion(){
+	public Animacion() {
 		arrLCuadros = new ArrayList();
 		lDuracionTotal = 0;
 		iniciar();
@@ -49,7 +49,7 @@ public class Animacion{
          * @param lDuracion es la <code>cantidad de duracion</code> de la imagen.
          * 
          */
-	public synchronized void sumaCuadro(Image imaImage, long lDuracion){
+	public synchronized void sumaCuadro(Image imaImage, long lDuracion) {
 		lDuracionTotal += lDuracion;
 		arrLCuadros.add(new cuadroDeAnimacion(imaImage, lDuracionTotal));
 	}
@@ -60,7 +60,7 @@ public class Animacion{
          * Metodo para iniciar la animacion desde el principio
          * 
          */
-	public synchronized void iniciar(){
+	public synchronized void iniciar() {
 		lTiempoDeAnimacion = 0;
 		iIndiceCuadroActual = 0;
 	}
@@ -74,17 +74,17 @@ public class Animacion{
          * @param lTiempoTranscurrido es el <code>tiempo</code> que ha transcurrido.
          * 
          */
-	public synchronized void actualiza(long lTiempoTranscurrido){
-		if (arrLCuadros.size() > 1){
+	public synchronized void actualiza(long lTiempoTranscurrido) {
+		if (arrLCuadros.size() > 1) {
 			lTiempoDeAnimacion += lTiempoTranscurrido;
 			
-			if (lTiempoDeAnimacion >= lDuracionTotal){
+			if (lTiempoDeAnimacion >= lDuracionTotal) {
 				lTiempoDeAnimacion = lTiempoDeAnimacion % lDuracionTotal;
 				iIndiceCuadroActual = 0; 
 			}
 			
 			while (lTiempoDeAnimacion > 
-                                getCuadro(iIndiceCuadroActual).tiempoFinal){
+                                getCuadro(iIndiceCuadroActual).tiempoFinal) {
 				iIndiceCuadroActual++;
 			}
 		}
@@ -99,8 +99,8 @@ public class Animacion{
          * @return la imagen actual de la animacion
          * 
          */
-	public synchronized Image getImagen(){
-		if (arrLCuadros.size() == 0){
+	public synchronized Image getImagen() {
+		if (arrLCuadros.size() == 0) {
 			return null;
 		}
 		else {
@@ -114,7 +114,7 @@ public class Animacion{
          * @param iN es el <code>cuadro</code> que desea regresar.
          * 
          */
-	private cuadroDeAnimacion getCuadro(int iN){
+	private cuadroDeAnimacion getCuadro(int iN) {
 		return (cuadroDeAnimacion)arrLCuadros.get(iN);
 	}
 	/**
@@ -128,29 +128,29 @@ public class Animacion{
 		Image imagen;
 		long tiempoFinal;
 		
-		public cuadroDeAnimacion(){
+		public cuadroDeAnimacion() {
 			this.imagen = null;
 			this.tiempoFinal = 0;
 		}
 		
-		public cuadroDeAnimacion(Image imagen, long tiempoFinal){
+		public cuadroDeAnimacion(Image imagen, long tiempoFinal) {
 			this.imagen = imagen;
 			this.tiempoFinal = tiempoFinal;
 		}
 		
-		public Image getImagen(){
+		public Image getImagen() {
 			return imagen;
 		}
 		
-		public long getTiempoFinal(){
+		public long getTiempoFinal() {
 			return tiempoFinal;
 		}
 		
-		public void setImagen (Image imagen){
+		public void setImagen (Image imagen) {
 			this.imagen = imagen;
 		}
 		
-		public void setTiempoFinal(long tiempoFinal){
+		public void setTiempoFinal(long tiempoFinal) {
 			this.tiempoFinal = tiempoFinal;
 		}
 	}

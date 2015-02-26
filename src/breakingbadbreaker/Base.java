@@ -246,7 +246,7 @@ public class Base {
             // si intersecta por izq o derecha
             if (this.getX() + this.getAncho() <= 
                     basObjeto.getX() - iDireccionX ||
-                    this.getX() >= basObjeto.getX() - iDireccionX){   
+                    this.getX() >= basObjeto.getX() - iDireccionX) {   
                 return 2;
             }
             

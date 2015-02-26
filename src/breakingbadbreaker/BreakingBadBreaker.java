@@ -237,27 +237,27 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                      iWidth / iMAXANCHO, iHeight / iMAXALTO,imgBlock);
             
             // si iRandom es menor que 4 dibuja la imagen de walter1
-            if ( iRandom < 4){
+            if ( iRandom < 4) {
                 basBlock.setImagen(imgBlock1);
             }
             // si iRandom es entre 4 y 7 dibuja la imagen de walter2
-            else if (iRandom >= 4 && iRandom < 7){
+            else if (iRandom >= 4 && iRandom < 7) {
                 basBlock.setImagen(imgBlock2);
             }
             // si iRandom es entre 7 y 9 dibuja walter 3
-            else if (iRandom >= 7 && iRandom < 10){
+            else if (iRandom >= 7 && iRandom < 10) {
                 basBlock.setImagen(imgBlock3);
                 
             }
             // si iRandom mas de 10 dibuja a jessie
-            else{
+            else {
                 basBlock.setImagen(imgBlockSpecial);
             }
             
             // aumenta las posiciones de x y y para ir acomodando cada bloque
             
             iPosX += iWidth / iMAXANCHO;
-            if(iPosX == iWidth){
+            if(iPosX == iWidth) {
                 iPosX = 0;
                 iPosY += iHeight / iMAXALTO;
             }
@@ -332,7 +332,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
      * Metodo usado para actualizar la posicion de los objetos
      * 
      */
-    public void actualiza(){
+    public void actualiza() {
         
         // calcula el tiempo transcurrido desde el inicio del juego 
         long lTiempoTrans = System.currentTimeMillis() - lTiempo;
@@ -343,11 +343,11 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         aniGus.actualiza(lTiempoTrans); //actualiza animacion de Fring
         
         
-        if(iTecla == 1){ 
+        if(iTecla == 1) { 
             // cuando se presiona la tecla flecha izq se mueve la barra
             basBarra.setX(basBarra.getX() - 10);
         }
-        if(iTecla == 2){
+        if(iTecla == 2) {
             // cuando se presiona la tecla flecha der se mueve la barra
             basBarra.setX(basBarra.getX() + 10);
         }
@@ -375,7 +375,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
      * Metodo usado para checar las colisiones del objeto elefante y raton
      * con las orillas del <code>Applet</code>.
      */
-    public void checaColision(){
+    public void checaColision() {
         
         // checa cuando la barra se sale por la izq
         if(basBarra.getX() < 0) {
@@ -447,7 +447,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                     if(basBlock.getY() < basBall.getY()) { //Choca por arriba
                         iAuxY = basBlock.getY() + basBlock.getAlto();
                     }
-                    else{   //Choca por abajo
+                    else {   //Choca por abajo
                         iAuxY = basBlock.getY() - basBall.getAlto();
                     }
                 }
@@ -546,7 +546,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
         //Checo colision entre los camiones y el espacio delimitado para ellos
         for(Base basTruck:lklTruck) {
-            if(basTruck.getX() > 600){
+            if(basTruck.getX() > 600) {
                 basTruck.setX(30);  //Modifico posicion
             }    
         }
@@ -563,7 +563,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     public void paint(Graphics graGrafico) {
         
         // Inicializan el DoubleBuffer
-        if (imaDBImage == null){
+        if (imaDBImage == null) {
             imaDBImage = createImage (this.getSize().width, this.getSize().height);
             graGrafica = imaDBImage.getGraphics ();
 	}
@@ -585,12 +585,12 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             
             Image imgPausa = Toolkit.getDefaultToolkit().getImage(this.getClass().
                     getResource("pausa.png"));
-            if(bPause){
+            if(bPause) {
                 graGrafica.drawImage(imgPausa, (iWidth / 2) - 320 ,
                     (iHeight / 2) - 180, this);
             }
          }
-         else{   
+         else {   
              // dibuja la imagen del menu
              graGrafica.drawImage(imgInicio, 0, 0, iWidth, iHeight, this);
         }
@@ -609,7 +609,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
      * ademas que cuando la imagen es cargada te despliega una advertencia.
      * @param graphics es el <code>objeto grafico</code> usado para dibujar.
      */
-    public void paint1 (Graphics graDibujo){
+    public void paint1 (Graphics graDibujo) {
         
         // para cuando algun objeto no se ha pintado
         if (lklBlock != null && basBall != null && basBarra != null
@@ -685,7 +685,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         graDibujo.setFont(graDibujo.getFont().deriveFont(30.0f));
         
         // cuando se ha perdido dibuja la imagen de gameover
-        if(iVidas == 0){
+        if(iVidas == 0) {
             graDibujo.drawImage(imgGameOver, (iWidth / 2 ) - 320,
                     (iHeight / 2) - 180, this);
         }
@@ -711,34 +711,34 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             iTecla = 1;
         }
         // cuando se presiona la tecla P 
-        if(keyEvent.getKeyCode() == KeyEvent.VK_P){
+        if(keyEvent.getKeyCode() == KeyEvent.VK_P) {
             
             bPause = !bPause; // cambia el estado de la boleana pausa
             
         }
         // cuando se presiona la tecla enter
-        if(keyEvent.getKeyCode() == KeyEvent.VK_ENTER){
+        if(keyEvent.getKeyCode() == KeyEvent.VK_ENTER) {
             
             // cuando se pierde y se quiere reiniciar el juego
-            if (iVidas == 0 || iCantBloques == 0){
+            if (iVidas == 0 || iCantBloques == 0) {
                 vuelveAEmpezar(); // reinicializa las variables principales 
             }
             // establece inicia en falso para saber que ya inicio el juego
             bInicia = false; 
         }
         // cuando se presiona la tecla escape
-        if(keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE){
+        if(keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE) {
             iVidas = 0; // establece vidas en 0
             iCantBloques = 0; // elimina todos los bloques
             
             // para cada bloque lo quita de la pantalla
-            for (Base basBloque : lklBlock){
-                if (basBloque.getX() >= 0){
+            for (Base basBloque : lklBlock) {
+                if (basBloque.getX() >= 0) {
                     basBloque.setX(basBloque.getX() - iWidth);
                 }
             }
             // quita todas las truck de la lista
-            while (!lklTruck.isEmpty()){
+            while (!lklTruck.isEmpty()) {
                 lklTruck.pop();
             }
         }
@@ -774,9 +774,9 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
      * Metodo <I>vuelveAEmpezar</I>.
      * En este metodo reinicializa las variables principales para un nuevo juego.
      */
-    public void vuelveAEmpezar(){
+    public void vuelveAEmpezar() {
         // quita todas las truck de la lista
-        while (!lklTruck.isEmpty()){
+        while (!lklTruck.isEmpty()) {
                 lklTruck.pop();
         }
         
@@ -788,7 +788,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         int iPosY = 80;
         
         // para cada bloque
-        for (Base basBlock : lklBlock){
+        for (Base basBlock : lklBlock) {
             // se crea una variable random entre 1 y 12
             int iRandom = (int) (Math.random() * 11 + 1); 
             
@@ -797,26 +797,26 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             basBlock.setY(iPosY);
             
             // si iRandom es menor que 4 dibuja la imagen de walter1
-            if ( iRandom < 4){
+            if ( iRandom < 4) {
                 basBlock.setImagen(imgBlock1);
             }
             // si iRandom es entre 4 y 7 dibuja la imagen de walter2
-            else if (iRandom >= 4 && iRandom < 7){
+            else if (iRandom >= 4 && iRandom < 7) {
                 basBlock.setImagen(imgBlock2);
             }
             // si iRandom es entre 7 y 9 dibuja walter 3
-            else if (iRandom >= 7 && iRandom < 10){
+            else if (iRandom >= 7 && iRandom < 10) {
                 basBlock.setImagen(imgBlock3);
                 
             }
             // si iRandom mas de 10 dibuja a jessie
-            else{
+            else {
                 basBlock.setImagen(imgBlockSpecial);
             }
             
             // calcula la posicon en X y Y para cada bloque
             iPosX += iWidth / iMAXANCHO;
-            if(iPosX == iWidth){
+            if(iPosX == iWidth) {
                 iPosX = 0;
                 iPosY += iHeight / iMAXALTO;
             }
