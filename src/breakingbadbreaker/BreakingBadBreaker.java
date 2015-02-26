@@ -63,6 +63,9 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     private Image imgBlock2;
     private Image imgBlock3;
     
+    private SoundClip scSonidoWalter;  // Objeto sonido de walter
+    private SoundClip scSonidoIntro;
+    
     private int iCantBloques;
     private int iVidas;
     private int iScore;
@@ -100,6 +103,11 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
         lklBlock = new LinkedList<Base>();   //Creo la lista de meth 
         lklTruck = new LinkedList<Base>();   // creo la lista de trucks
+        
+        //defino el sonido 1
+        scSonidoWalter = new SoundClip("saymyname.wav");
+        //defino el sonido 2
+        scSonidoIntro = new SoundClip("intro.wav");
         
         //La imagen del inicio
         imgInicio = Toolkit.getDefaultToolkit().getImage(this.getClass()
@@ -254,6 +262,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
            movimientos y se vuelve a pintar todo
         */ 
         lTiempo = System.currentTimeMillis();
+        scSonidoIntro.play();
         while (true){
            
             if(!bPause && iCantBloques > 0 && iVidas > 0 && !bInicia){
@@ -351,6 +360,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             basBarra.setX(iWidth / 2 - basBarra.getAncho() /2);
 
             iVidas--;
+            scSonidoWalter.play();
             // 1 vida menos
             if (iVidas == 0){
                 iNivel = 1;
