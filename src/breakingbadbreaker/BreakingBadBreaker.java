@@ -323,7 +323,10 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             lklTruck.pop();
         }
         
-        boolean bChoco = false;
+        boolean bChocoVertical = false;
+        boolean bChocoHorizontal = false;
+        int iAuxY = 0;
+        int iAuxX;
         for(Base basBlock:lklBlock) {
            
             
@@ -332,24 +335,17 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                 int iAuxDirY = iDireccionY + (iNivel * iDireccionY / 5);
                 // intersecta por abajo o por arriba
                 if(basBlock.intersectapor(basBall, iDireccionX, iAuxDirY) == 1){
-                    if (basBlock.getY() < basBall.getY()){
-                        basBall.setY(basBlock.getY() + basBlock.getAlto());
+                    bChocoVertical = true;
+                    if(basBlock.getY() < basBall.getY()){
+                        iAuxY = basBlock.getY() + basBlock.getAlto();
                     }
-                    else {
-                        basBall.setY(basBlock.getY() - basBall.getAlto());                    
-                    }
-                    if (!bChoco){
-                        iDireccionY *= -1;
-                        bChoco = true;
+                    else{
+                        iAuxY = basBlock.getY() - basBall.getAlto();
                     }
                 }
                 // intersecta por izquierda o derecha
                 else if(basBlock.intersectapor(basBall, iDireccionX, iAuxDirY) == 2){
-                    
-                    if(!bChoco){
-                        iDireccionX *= -1;
-                        bChoco = true;
-                    }
+                    bChocoHorizontal = true;
                 }
                 
                 if (basBlock.getImagen() == imgBlock1){
@@ -386,13 +382,16 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                         lklTruck.add(basTruck);
                     }
                 }
-                
-            }
-                
-          
-           
+                   
+            } 
         }
-        
+        if (bChocoVertical){
+            iDireccionY *= -1;
+            basBall.setY(iAuxY);
+        } 
+        if(bChocoHorizontal){
+            iDireccionX *= -1;
+        } 
         
         if(basBarra.intersecta(basBall)){
             
