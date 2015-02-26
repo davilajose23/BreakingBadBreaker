@@ -51,55 +51,54 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     private LinkedList<Base> lklBlock; //Lista de meths
     private LinkedList<Base> lklTruck; // Lista de trucks
     
-    private Image imgBlock;
-    private Image imgBall;
-    private Image imgBarra;
-    private Image imgTruck;
-    private Image imgGameOver;
-    private Image imgInicio;
+    private Image imgBlock; // imagen del block
+    private Image imgBall; // imagen de la bola
+    private Image imgBarra; // imagen de la barra
+    private Image imgTruck; // imagen de la camioneta ( vidas)
+    private Image imgGameOver; // imagen game over
+    private Image imgInicio; // imagen del inicio
+    private Image imgBlockSpecial; // imagen de jessie como bloque
+    private Image imgBlock1; // imagen de walter como bloque azul
+    private Image imgBlock2; // imagen de walter como bloque verde
+    private Image imgBlock3; // imagen de walter como bloque gris
     
-    private Image imgBlockSpecial;
-    private Image imgBlock1;
-    private Image imgBlock2;
-    private Image imgBlock3;
+    private SoundClip scSonidoWalter;  // Objeto sonido de walter say my name
+    private SoundClip scSonidoIntro; // sonido de inicio
+    private SoundClip scSonidoDam; // sonido de walter goddam
     
-    private SoundClip scSonidoWalter;  // Objeto sonido de walter
-    private SoundClip scSonidoIntro;
-    private SoundClip scSonidoDam;
+    private int iCantBloques; // cantidad de bloques restantes
+    private int iVidas; // cantidad de vidas restantes
+    private int iScore; // cantidad de puntos
+    private boolean bPause; // boleana cuando esta en pausa
+    private int iPosXBall; // posicion de la bola en x
+    private int iPosYBall; // posicion de la bola en y
+    private int iDireccionX; // direccion en que se mueve la bola en x
+    private int iDireccionY; // direccion en que se mueve la bola en y
+    private int iTecla; // flecha derecha = 2, flecha izquierda = 1
+    private int iPosXBarra; // posicion en x de la barra
+    private int iPosYBarra; // posicion en y de la barra
+    private int iNivel; //nivel del juego
     
-    private int iCantBloques;
-    private int iVidas;
-    private int iScore;
-    private boolean bPause;
-    private int iPosXBall;
-    private int iPosYBall;
-    private int iDireccionX;
-    private int iDireccionY;
-    private int iTecla;
-    private int iPosXBarra;
-    private int iPosYBarra;
-    private int iNivel;
-    
-    private Animacion aniHank;
-    private Animacion aniHector;
-    private long lTiempo;
-    private boolean bInicia;
+    private Animacion aniHank; // animacion de la bola de hank
+    private Animacion aniHector; // animacion de la bola de hector
+    private long lTiempo; // variable usada para guardar el tiempo
+    private boolean bInicia; // bolean cuando ya inicio el juego
     
    /**
-     * Constructor de la clase <code>JuegoJFrame</code>.
+     * Constructor de la clase <code>BreakingBadBreaker</code>.
      * En este metodo se inizializan las variables o se crean los objetos
      * a usarse en el <code>JFrame</code> y se definen funcionalidades.
      */
 	public BreakingBadBreaker() {
         
        
-        iTecla = 0;
-        iDireccionX = 0;
-        iDireccionY = -5;
-        iVidas = 5;
-        iScore = 0;
-        bPause = false;
-        iNivel = 1;
+        iTecla = 0; // se inicializa la variable tecla en 0
+        iDireccionX = 0; // se inicializa la direccion en x de la bola en 0
+        iDireccionY = -5; // se inicializa la direccion en y de la bola en -5
+        iVidas = 5; // cantidad de vidas empieza en 5
+        iScore = 0; // el score empieza en 0
+        bPause = false; //se inicializa en falso la pausa
+        iNivel = 1; // empieza en el nivel 1
         bInicia = true; // Acaba de iniciar el juego
         
         lklBlock = new LinkedList<Base>();   //Creo la lista de meth 
@@ -116,7 +115,8 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         imgInicio = Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("inicio.png"));
         
-        //la imagen de cada Block
+        
+        //la imagen de cada Bloque de walter y jessie
         
         imgBlock1 = Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("walter1.png"));
@@ -135,8 +135,8 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                 .getResource("truck1.png"));
         
         // la imagen de ball
-        //imgBall = Toolkit.getDefaultToolkit().getImage(this.getClass()
-        //        .getResource("hank.png"));
+        imgBall = Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("hank.png"));
         // la imagen de la barra
         imgBarra = Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("barra.png"));
@@ -144,22 +144,29 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         imgGameOver = Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("gameover.png"));
         
+        // crea el objeto Ball tipo base
         basBall = new Base(iWidth / 2, 3 * iHeight / 4 , 
              //   iWidth / 10 , iHeight / 7, imgBall);
                  iWidth / 15, iHeight / 12, imgBall);
         
+        // reposiciona la variable ball en el centro
         basBall.setX(basBall.getX() - basBall.getAncho() / 2);
         
+        // crea el objeto Base tipo base
         basBarra = new Base(iWidth / 2, 9 * iHeight / 10 , 
                 iWidth / 3 , iHeight / 10, imgBarra);
         
+        // reposiciona la variable barra en el centro
         basBarra.setX(basBarra.getX() - basBarra.getAncho() / 2);
         
-        //Creo animacion
+        //Creo animacion de hank
         aniHank = new Animacion();
-        //Creo animacion
+        
+        //Creo animacion de hector
         aniHector = new Animacion();
         long lDuracion = 125;
+        
+        // agrego cada imagen de hank a la animacion
         aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("Images/HankA.png")), lDuracion);
         aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
@@ -176,7 +183,8 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                 .getResource("Images/HankG.png")), lDuracion);
         aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("Images/HankH.png")), lDuracion);
-        // animacion de hector
+        
+        // cada imagen de hector a la animacion
         aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("Images/hectorA.png")), lDuracion);
         aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
@@ -194,50 +202,62 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("Images/hectorH.png")), lDuracion);
         
+        // las variables donde se va a posicionar cada bloque
         int iPosX  = 0;
         int iPosY = 80;
         
+        // se calcula la cantidad de bloques
         iCantBloques = iMAXANCHO * 3  ;
         
+        // para cada bloque se crea un objeto base y se agrega a la lista
         for(int iI = 0; iI < iCantBloques; iI++) {
             
-            int iRandom = (int) (Math.random() * 11 + 1);
+            // se crea una variable random entre 1 y 12
+            int iRandom = (int) (Math.random() * 11 + 1); 
             Base basBlock = new Base(iPosX, iPosY,
                      iWidth / iMAXANCHO, iHeight / iMAXALTO,imgBlock);
             
+            // si iRandom es menor que 4 dibuja la imagen de walter1
             if ( iRandom < 4){
                 basBlock.setImagen(imgBlock1);
             }
+            // si iRandom es entre 4 y 7 dibuja la imagen de walter2
             else if (iRandom >= 4 && iRandom < 7){
                 basBlock.setImagen(imgBlock2);
             }
+            // si iRandom es entre 7 y 9 dibuja walter 3
             else if (iRandom >= 7 && iRandom < 10){
                 basBlock.setImagen(imgBlock3);
                 
-            }else{
+            }
+            // si iRandom mas de 10 dibuja a jessie
+            else{
                 basBlock.setImagen(imgBlockSpecial);
             }
             
-           
+            // aumenta las posiciones de x y y para ir acomodando cada bloque
+            
             iPosX += iWidth / iMAXANCHO;
             if(iPosX == iWidth){
                 iPosX = 0;
                 iPosY += iHeight / iMAXALTO;
             }
            
-            
+            // agrega los bloques creados a la lista
             lklBlock.add(basBlock);
         }
          
-        iPosX = 100;
+        
+        iPosX = 100; // variable para la posicion en x de las imagenes de vidas
         for(int iI = 0; iI < iVidas; iI++) {
             
-         
+            // se crea cada objeto de truck
             Base basTruck = new Base(iPosX, 30,
                      iWidth / 12 , iHeight / 13,imgTruck);
-           
+            // aumenta la variable para la siguiente imagen
             iPosX += iWidth / 12;
-
+            
+            // agrega cada truck a la lista
             lklTruck.add(basTruck);
         }
             
@@ -264,20 +284,22 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
            se checa si hubo colisiones para desaparecer jugadores o corregir
            movimientos y se vuelve a pintar todo
         */ 
+        // se define la variable ltiempo para obtener el tiempo inicial 
         lTiempo = System.currentTimeMillis();
-        scSonidoIntro.play();
-        while (true){
+        scSonidoIntro.play(); // reproduce el sonido de intro
+        while (true) {
            
-            if(!bPause && iCantBloques > 0 && iVidas > 0 && !bInicia){
-                actualiza();
-                checaColision();
-                repaint();
+            if(!bPause && iCantBloques > 0 && iVidas > 0 && !bInicia) {
+                actualiza(); // actualiza las posiciones de cada objeto
+                checaColision(); // checa las colisiones entre objetos
+                repaint(); // repinta el Jframe
             }
             try	{
             // El thread se duerme.
                 Thread.sleep (20);
             }
             catch (InterruptedException iexError) {
+                // cuando hubo un error y no se pudo hacer dormir el thread
                 System.out.println("Hubo un error en el juego " + 
                         iexError.toString());
             }
@@ -293,25 +315,32 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
      */
     public void actualiza(){
         
+        // calcula el tiempo transcurrido desde el inicio del juego 
         long lTiempoTrans = System.currentTimeMillis() - lTiempo;
+        // lTiempo se redefine como el tiempo actual
         lTiempo = System.currentTimeMillis();
-        aniHank.actualiza(lTiempoTrans);
-        aniHector.actualiza(lTiempoTrans);
+        aniHank.actualiza(lTiempoTrans); // actualiza la imagen de la animacion
+        aniHector.actualiza(lTiempoTrans); // actualiza la imagen de la animacion
         
-        if(iTecla == 1){
+        if(iTecla == 1){ 
+            // cuando se presiona la tecla flecha izq se mueve la barra
             basBarra.setX(basBarra.getX() - 10);
         }
         if(iTecla == 2){
+            // cuando se presiona la tecla flecha der se mueve la barra
             basBarra.setX(basBarra.getX() + 10);
         }
+        
+        // mueve la ball en X y Y
         
         basBall.setX(basBall.getX() +  iDireccionX );
         basBall.setY(basBall.getY() +  iDireccionY + 
                 (( iNivel * iDireccionY)/5));
         
-        
+        // para cada camion de la lista
         for(Base basTruck:lklTruck) {
-        
+            
+            // mueve cada camion a la derecha
             basTruck.setX(basTruck.getX() + 3);
             
             
@@ -499,17 +528,27 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             imaDBImage = createImage (this.getSize().width, this.getSize().height);
             graGrafica = imaDBImage.getGraphics ();
 	}
-        
-        Image imgFondo = Toolkit.getDefaultToolkit().getImage(this.getClass().
-                getResource("fondo.png"));
-       
-        graGrafica.drawImage(imgFondo, 0,0,iWidth,iHeight, this);
-        
-        
-        // Actualiza el Foreground.
-        graGrafica.setColor (getForeground());
-        paint1(graGrafica);
+        // mientras no haya iniciado el juego
+        if (!bInicia) {
+            
+            Image imgFondo = Toolkit.getDefaultToolkit().getImage(this.getClass().
+                    getResource("fondo.png"));
 
+            graGrafica.drawImage(imgFondo, 0,0,iWidth,iHeight, this);
+
+
+            // Actualiza el Foreground.
+            graGrafica.setColor (getForeground());
+
+
+
+            paint1(graGrafica);
+         }
+         else{   
+             // dibuja la imagen del menu
+             graGrafica.drawImage(imgInicio, 0, 0, iWidth, iHeight, this);
+        }
+         
         // Dibuja la imagen actualizada
         graGrafico.drawImage (imaDBImage, 0, 0, this);
         
@@ -527,8 +566,9 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     
     public void paint1 (Graphics graDibujo){
         
+        // para cuando algun objeto no se ha pintado
         if (lklBlock != null && basBall != null && basBarra != null
-                && lklTruck != null && !bInicia) {
+                && lklTruck != null ) {
             
             //Dibuja la imagen de las trucks
             for (Base basTruck:lklTruck) {
@@ -539,19 +579,25 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             
             graDibujo.setColor(Color.white); //Escribo en color blanco
             
+            // dibuja la imagen de fondo recortada para la animacion de las trucks
             Image imgFondo1 = Toolkit.getDefaultToolkit().getImage(this.getClass().
                 getResource("fondo1.png"));
             
             graDibujo.drawImage(imgFondo1, 0,0,iWidth,iHeight, this);
-           
+            
+            // dibuja la imagen de la linea para dividir el tablero
             graDibujo.drawLine(0, 80, iWidth, 80);
             
-            int iCantidadBall = 2;
-            if(iNivel % iCantidadBall == 0){
+            int iCantidadBall = 2; // la cantidad de balls que se tienen
+            
+            if(iNivel % iCantidadBall == 0){ 
+                
                 //dibuja la ball de hank
                 graDibujo.drawImage(aniHank.getImagen(),basBall.getX(),
                         basBall.getY(),iWidth/15, iHeight/12, this);
+                
             }else if(iNivel % iCantidadBall == 1){
+                
                 //dibuja la ball de hank
                 graDibujo.drawImage(aniHector.getImagen(),basBall.getX(),
                         basBall.getY(),iWidth/15, iHeight/12, this);
@@ -572,20 +618,24 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                 graDibujo.drawString("No se cargo la imagen..", 20, 20);
         }
         
-        graDibujo.setColor(Color.white); //Escribo en color rojo
-        graDibujo.drawString("Vidas: ", 10, 60);   //Escribo vidas
-        graDibujo.drawString("Nivel: "+ iNivel,iWidth - 350 ,60); // escribo el nivel
-        graDibujo.drawString("Puntos: " + iScore, iWidth - 200, 60);  // escribo score
+        //Escribo en color rojo
+        graDibujo.setColor(Color.white); 
+        //Escribo vidas
+        graDibujo.drawString("Vidas: ", 10, 60);   
+        // escribo el nivel
+        graDibujo.drawString("Nivel: "+ iNivel,iWidth - 350 ,60); 
+        // escribo score
+        graDibujo.drawString("Puntos: " + iScore, iWidth - 200, 60); 
+        // establece el tamaño de la fuente en 30
         graDibujo.setFont(graDibujo.getFont().deriveFont(30.0f));
         
+        // cuando se ha perdido dibuja la imagen de gameover
         if(iVidas == 0){
             graDibujo.drawImage(imgGameOver, (iWidth / 2 ) - 320,
                     (iHeight / 2) - 180, this);
         }
         
-        if (bInicia) {
-            graDibujo.drawImage(imgInicio, 0, 0, iWidth, iHeight, this);
-        }
+       
         
     }
     
@@ -597,37 +647,48 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     @Override
     public void keyPressed(KeyEvent keyEvent) {
         
-        
+        // cuando se presiona la tecla flecha derecha
         if(keyEvent.getKeyCode() == KeyEvent.VK_RIGHT) { 
-            iTecla = 2;
+            iTecla = 2; 
         }
+        // cuando se presiona la tecla flecha izquierda
         if(keyEvent.getKeyCode() == KeyEvent.VK_LEFT) { 
             iTecla = 1;
         }
+        // cuando se presiona la tecla P 
         if(keyEvent.getKeyCode() == KeyEvent.VK_P){
             
-            bPause = !bPause;
+            bPause = !bPause; // cambia el estado de la boleana pausa
             
         }
+        // cuando se presiona la tecla enter
         if(keyEvent.getKeyCode() == KeyEvent.VK_ENTER){
+            
+            // cuando se pierde y se quiere reiniciar el juego
             if (iVidas == 0 || iCantBloques == 0){
-                vuelveAEmpezar();
+                vuelveAEmpezar(); // reinicializa las variables principales 
             }
-            bInicia = false;
+            // establece inicia en falso para saber que ya inicio el juego
+            bInicia = false; 
         }
+        // cuando se presiona la tecla escape
         if(keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE){
-            iVidas = 0;
-            iCantBloques = 0;
+            iVidas = 0; // establece vidas en 0
+            iCantBloques = 0; // elimina todos los bloques
+            
+            // para cada bloque lo quita de la pantalla
             for (Base basBloque : lklBlock){
                 if (basBloque.getX() >= 0){
                     basBloque.setX(basBloque.getX() - iWidth);
                 }
             }
+            // quita todas las truck de la lista
             while (!lklTruck.isEmpty()){
                 lklTruck.pop();
             }
         }
         
+        // repinta el juego
         repaint();
         
     }
@@ -652,64 +713,81 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
         
-        iTecla = 0;
-    }
-    /**
-     * Metodo que lee a informacion de un archivo.
-     *
-     * @throws IOException
-     */
-    public void leeArchivo() throws IOException{
-    	
-    }
-	
-    /**
-     * Metodo que escribe en el archivo
-     *
-     * @throws IOException
-     */
-    public void grabaArchivo() throws IOException{
-    	
-        
-        
+        iTecla = 0; // cuando se suelta las flechas izq o derecha
     }
     
+    /**
+     * Metodo <I>vuelveAEmpezar</I>.
+     * En este metodo reinicializa las variables principales para un nuevo juego.
+     */
     public void vuelveAEmpezar(){
+        // quita todas las truck de la lista
         while (!lklTruck.isEmpty()){
                 lklTruck.pop();
         }
-        iVidas = 5;
-        iScore = 0;
+        
+        iVidas = 5; // vuelve a iniciar vidas en 5
+        iScore = 0; // reestablece el score en 0
+        
+         // las variables donde se va a posicionar cada bloque
+        int iPosX  = 0;
+        int iPosY = 80;
+        
+        // para cada bloque
         for (Base basBlock : lklBlock){
-            int iRandom = (int) (Math.random() * 3 + 1);
-            if(basBlock.getX() < 0){
-                basBlock.setX(basBlock.getX() + iWidth);
-            }
-            if (iRandom == 1){
+            // se crea una variable random entre 1 y 12
+            int iRandom = (int) (Math.random() * 11 + 1); 
+            
+            // reposiciona los bloques en su posicion
+            basBlock.setX(iPosX);
+            basBlock.setY(iPosY);
+            
+            // si iRandom es menor que 4 dibuja la imagen de walter1
+            if ( iRandom < 4){
                 basBlock.setImagen(imgBlock1);
             }
-            else if (iRandom == 2){
+            // si iRandom es entre 4 y 7 dibuja la imagen de walter2
+            else if (iRandom >= 4 && iRandom < 7){
                 basBlock.setImagen(imgBlock2);
             }
-            else if (iRandom == 3){
+            // si iRandom es entre 7 y 9 dibuja walter 3
+            else if (iRandom >= 7 && iRandom < 10){
                 basBlock.setImagen(imgBlock3);
+                
             }
+            // si iRandom mas de 10 dibuja a jessie
+            else{
+                basBlock.setImagen(imgBlockSpecial);
+            }
+            
+            // calcula la posicon en X y Y para cada bloque
+            iPosX += iWidth / iMAXANCHO;
+            if(iPosX == iWidth){
+                iPosX = 0;
+                iPosY += iHeight / iMAXALTO;
+            }
+           
         }
-        iCantBloques = 30;
+        // se calcula la cantidad de bloques
+        iCantBloques = iMAXANCHO * 3  ;
+        // reposiciona la ball en el centro
         basBall.setX(iWidth / 2 - basBall.getAncho() / 2);
         basBall.setY(3 * iHeight / 4);
         
-        int iPosX = 100;
+         iPosX = 100; // variable para la posicion de las truck
         for(int iI = 0; iI < iVidas; iI++) {
+            // vuelve a crear cada objeto de truck
             Base basTruck = new Base(iPosX, 30,
                      iWidth / 12 , iHeight / 13,imgTruck);
-           
+           // aumenta la posicion para la siguiente truck
             iPosX += iWidth / 12;
-
+            // agrega las truck a la lista
             lklTruck.add(basTruck);
         }
+        // reposiciona la barra en el centro
         basBarra.setX(iWidth / 2 - basBarra.getAncho() / 2);
         
+        // reinicia la direccion de la bola
         iDireccionX = 0;
         iDireccionY = -5;
     }
@@ -726,7 +804,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     	BreakingBadBreaker bbbJuego = new BreakingBadBreaker();
     	bbbJuego.setSize(1000, 700); // crea la ventana de 800x500
     	bbbJuego.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	bbbJuego.setVisible(true);
+    	bbbJuego.setVisible(true); // hace visible la ventana
 
     }
     
