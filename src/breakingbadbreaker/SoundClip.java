@@ -15,7 +15,7 @@ import java.net.URL;
  * La clase SoundClip para reproducir sonidos
  * <code>SoundClip</code>
  *
- * @author José Fernando Davila     
+ * @author José Fernando Davila A00999281 y Juan Carlos Guzmán A01175826  
  * @version 1
  * @date 25/Feb/2015
  */

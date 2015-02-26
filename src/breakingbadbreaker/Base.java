@@ -10,9 +10,9 @@ package breakingbadbreaker;
  * Modela la definición de todos los objetos de tipo
  * <code>Base</code>
  *
- * @author José Fernando Davila y Juan Carlos Guzmán    
+ * @author José Fernando Davila A00999281 y Juan Carlos Guzmán A01175826  
  * @version 1
- * @date 18/Feb/2015
+ * @date 25/Feb/2015
  */
 import java.awt.Graphics;
 import java.awt.Image;

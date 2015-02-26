@@ -16,8 +16,13 @@ import java.util.LinkedList;
 import javax.swing.JFrame;
 
 /**
+ * BreakingBadBreaker
  *
- * @author JoseFernando y Juan Carlos Guzmán
+ * Juego del clasico brick breaker con tematica de BreakingBad
+ *
+ * @author José Fernando Davila A00999281 y Juan Carlos Guzmán A01175826  
+ * @version 1
+ * @date 25/Feb/2015
  */
 public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener {
 
