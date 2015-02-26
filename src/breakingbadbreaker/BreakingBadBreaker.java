@@ -77,9 +77,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     private long lTiempo; // variable usada para guardar el tiempo
     private boolean bInicia; // bolean cuando ya inicio el juego
     
-    private Animacion aniBarraFring;    //Animacion de la barra de Fring
-    private Animacion aniBarraHank; //Animacion de la barra de Hank
-    private Animacion aniBarraHector;   //Animacion de la barra de Hector
+   
     
    /**
      * Constructor de la clase <code>BreakingBadBreaker</code>.
@@ -157,65 +155,6 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         // reposiciona la variable barra en el centro
         basBarra.setX(basBarra.getX() - basBarra.getAncho() / 2);
         
-        //Creo animacion de la barra de Fring
-        aniBarraFring = new Animacion();
-        //La lleno de sus imagenes
-        aniBarraFring.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Gustavo Fringe/fringA.png")), 100);
-        aniBarraFring.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Gustavo Fringe/fringB.png")), 100);
-        aniBarraFring.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Gustavo Fringe/fringC.png")), 100);
-        aniBarraFring.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Gustavo Fringe/fringD.png")), 100);
-        aniBarraFring.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Gustavo Fringe/fringE.png")), 100);
-        aniBarraFring.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Gustavo Fringe/fringD.png")), 100);
-        aniBarraFring.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Gustavo Fringe/fringC.png")), 100);
-        aniBarraFring.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Gustavo Fringe/fringB.png")), 100);
-
-        //Creo la barra de Hank
-        aniBarraHank = new Animacion();
-        //La lleno de sus imagenes
-        aniBarraFring.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Hank/HankA.png")), 100);
-        aniBarraFring.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Hank/HankB.png")), 100);
-        aniBarraFring.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Hank/HankC.png")), 100);
-        aniBarraFring.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Hank/HankD.png")), 100);
-        aniBarraFring.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Hank/HankE.png")), 100);
-        aniBarraFring.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Hank/HankD.png")), 100);
-        aniBarraFring.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Hank/HankC.png")), 100);
-        aniBarraFring.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Hank/HankB.png")), 100);
-        
-        //Creo la barra de Hector
-        aniBarraHector = new Animacion();
-        //La lleno de sus imagenes
-        aniBarraHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Hector/HectorA.png")), 100);
-        aniBarraHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Hector/HectorB.png")), 100);
-        aniBarraHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Hector/HectorC.png")), 100);
-        aniBarraHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Hector/HectorD.png")), 100);
-        aniBarraHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Hector/HectorE.png")), 100);
-        aniBarraHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Hector/HectorD.png")), 100);
-        aniBarraHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Hector/HectorC.png")), 100);
-        aniBarraHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/Barra/Hector/HectorB.png")), 100);
         
         //Creo animacion de hank
         aniHank = new Animacion();
@@ -402,9 +341,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         aniHank.actualiza(lTiempoTrans); // actualiza la imagen de la animacion
         aniHector.actualiza(lTiempoTrans); // actualiza la imagen de la animacion
         aniGus.actualiza(lTiempoTrans); //actualiza animacion de Fring
-        aniBarraFring.actualiza(lTiempoTrans);  //  actualiza imagen de animacion
-        aniBarraHank.actualiza(lTiempoTrans);   //  actualiza imagen de animacion
-        aniBarraHector.actualiza(lTiempoTrans); //  actualiza imagen de animacion
+        
         
         if(iTecla == 1){ 
             // cuando se presiona la tecla flecha izq se mueve la barra
@@ -703,26 +640,26 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                 //dibuja la ball y barra de hank
                 graDibujo.drawImage(aniHank.getImagen(),basBall.getX(),
                         basBall.getY(),iWidth/15, iHeight/12, this);
-                graDibujo.drawImage(aniBarraHank.getImagen(), basBarra.getX()
-                        , basBarra.getY(), iWidth / 3, iHeight / 10, this);
+                
                 
             }else if(iNivel % iCantidadBall == 1) {
                 
                 //dibuja la ball y barra de Hector
                 graDibujo.drawImage(aniHector.getImagen(),basBall.getX(),
                         basBall.getY(),iWidth/15, iHeight/12, this);
-                graDibujo.drawImage(aniBarraHector.getImagen(), basBarra.getX()
-                        , basBarra.getY(), iWidth / 3, iHeight / 10, this);
+                
                 
             }else if(iNivel % iCantidadBall == 2) {
                 
                 //dibuja la ball y barra de Fring
                 graDibujo.drawImage(aniGus.getImagen(),basBall.getX(),
                         basBall.getY(),iWidth/15, iHeight/12, this);
-                graDibujo.drawImage(aniBarraFring.getImagen(), basBarra.getX()
-                        , basBarra.getY(), iWidth / 3, iHeight / 10, this);
+                
                 
             }
+            
+            //dibuja la barra
+            basBarra.paint(graDibujo, this);
             
             //Dibuja la imagen de los bloques
             for (Base basBlock:lklBlock) {
