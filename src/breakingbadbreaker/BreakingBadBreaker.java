@@ -76,6 +76,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     private int iNivel;
     
     private Animacion aniHank;
+    private Animacion aniHector;
     private long lTiempo;
     
    /**
@@ -116,8 +117,8 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                 .getResource("truck1.png"));
         
         // la imagen de ball
-        imgBall = Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("hank.png"));
+        //imgBall = Toolkit.getDefaultToolkit().getImage(this.getClass()
+        //        .getResource("hank.png"));
         // la imagen de la barra
         imgBarra = Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("barra.png"));
@@ -138,6 +139,8 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
         //Creo animacion
         aniHank = new Animacion();
+        //Creo animacion
+        aniHector = new Animacion();
         long lDuracion = 125;
         aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("Images/HankA.png")), lDuracion);
@@ -155,6 +158,23 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                 .getResource("Images/HankG.png")), lDuracion);
         aniHank.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("Images/HankH.png")), lDuracion);
+        // animacion de hector
+        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/hectorA.png")), lDuracion);
+        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/hectorB.png")), lDuracion);
+        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/hectorC.png")), lDuracion);
+        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/hectorD.png")), lDuracion);
+        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/hectorE.png")), lDuracion);
+        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/hectorF.png")), lDuracion);
+        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/hectorG.png")), lDuracion);
+        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/hectorH.png")), lDuracion);
         
         int iPosX  = 0;
         int iPosY = 80;
@@ -257,6 +277,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         long lTiempoTrans = System.currentTimeMillis() - lTiempo;
         lTiempo = System.currentTimeMillis();
         aniHank.actualiza(lTiempoTrans);
+        aniHector.actualiza(lTiempoTrans);
         
         if(iTecla == 1){
             basBarra.setX(basBarra.getX() - 10);
@@ -505,9 +526,17 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
            
             graDibujo.drawLine(0, 80, iWidth, 80);
             
-            //dibuja la ball
-            graDibujo.drawImage(aniHank.getImagen(),basBall.getX(),
-                    basBall.getY(),iWidth/15, iHeight/12, this);
+            int iCantidadBall = 2;
+            if(iNivel % iCantidadBall == 0){
+                //dibuja la ball de hank
+                graDibujo.drawImage(aniHank.getImagen(),basBall.getX(),
+                        basBall.getY(),iWidth/15, iHeight/12, this);
+            }else if(iNivel % iCantidadBall == 1){
+                //dibuja la ball de hank
+                graDibujo.drawImage(aniHector.getImagen(),basBall.getX(),
+                        basBall.getY(),iWidth/15, iHeight/12, this);
+                
+            }
             //dibuja la barra
             basBarra.paint(graDibujo, this);
             
