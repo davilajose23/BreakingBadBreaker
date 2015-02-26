@@ -334,7 +334,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         boolean bChocoVertical = false;
         boolean bChocoHorizontal = false;
         int iAuxY = 0;
-        int iAuxX;
+        int iAuxX = 0;
         for(Base basBlock:lklBlock) {
            
             
@@ -354,6 +354,12 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                 // intersecta por izquierda o derecha
                 else if(basBlock.intersectapor(basBall, iDireccionX, iAuxDirY) == 2){
                     bChocoHorizontal = true;
+                    if(basBlock.getX() < basBall.getX()){
+                        iAuxX = basBlock.getX() + basBlock.getAncho();
+                    }
+                    else{
+                        iAuxX = basBlock.getX() - basBall.getAncho();
+                    }
                 }
                 
                 if (basBlock.getImagen() == imgBlock1){
@@ -376,26 +382,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                     
                 }
                 
-                if(iCantBloques == 0){
-                    iNivel++;
-                    int iAux = iScore;
-                    int iAux2 = iVidas;
-                    vuelveAEmpezar();
-                    iScore = iAux;
-                    iVidas = iAux2;
-                    int iPosX = 100;
-                    while (!lklTruck.isEmpty()){
-                        lklTruck.pop();
-                    }
-                    for(int iI = 0; iI < iVidas; iI++) {
-                        Base basTruck = new Base(iPosX, 30,
-                                 iWidth / 12 , iHeight / 13,imgTruck);
-
-                        iPosX += iWidth / 12;
-
-                        lklTruck.add(basTruck);
-                    }
-                }
+                
                    
             } 
         }
@@ -405,7 +392,28 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         } 
         if(bChocoHorizontal){
             iDireccionX *= -1;
+            basBall.setX(iAuxX);
         } 
+        if(iCantBloques == 0){
+            iNivel++;
+            int iAux = iScore;
+            int iAux2 = iVidas;
+            vuelveAEmpezar();
+            iScore = iAux;
+            iVidas = iAux2;
+            int iPosX = 100;
+            while (!lklTruck.isEmpty()){
+                lklTruck.pop();
+            }
+            for(int iI = 0; iI < iVidas; iI++) {
+                Base basTruck = new Base(iPosX, 30,
+                         iWidth / 12 , iHeight / 13,imgTruck);
+
+                iPosX += iWidth / 12;
+
+                lklTruck.add(basTruck);
+            }
+        }
         
         if(basBarra.intersecta(basBall)){
             
