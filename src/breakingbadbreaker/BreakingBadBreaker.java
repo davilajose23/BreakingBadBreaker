@@ -672,23 +672,33 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             // dibuja la imagen de la linea para dividir el tablero
             graDibujo.drawLine(0, 80, iWidth, 80);
             
-            int iCantidadBall = 2; // la cantidad de balls que se tienen
+            int iCantidadBall = 3; // la cantidad de balls que se tienen
             
-            if(iNivel % iCantidadBall == 0){ 
+            if(iNivel % iCantidadBall == 0) { 
                 
-                //dibuja la ball de hank
+                //dibuja la ball y barra de hank
                 graDibujo.drawImage(aniHank.getImagen(),basBall.getX(),
                         basBall.getY(),iWidth/15, iHeight/12, this);
+                graDibujo.drawImage(aniBarraHank.getImagen(), basBarra.getX()
+                        , basBarra.getY(), iWidth / 3, iHeight / 10, this);
                 
-            }else if(iNivel % iCantidadBall == 1){
+            }else if(iNivel % iCantidadBall == 1) {
                 
-                //dibuja la ball de hank
+                //dibuja la ball y barra de Hector
                 graDibujo.drawImage(aniHector.getImagen(),basBall.getX(),
                         basBall.getY(),iWidth/15, iHeight/12, this);
+                graDibujo.drawImage(aniBarraHector.getImagen(), basBarra.getX()
+                        , basBarra.getY(), iWidth / 3, iHeight / 10, this);
+                
+            }else if(iNivel % iCantidadBall == 2) {
+                
+                //dibuja la ball y barra de Fring
+                graDibujo.drawImage(aniHank.getImagen(),basBall.getX(),
+                        basBall.getY(),iWidth/15, iHeight/12, this);
+                graDibujo.drawImage(aniBarraFring.getImagen(), basBarra.getX()
+                        , basBarra.getY(), iWidth / 3, iHeight / 10, this);
                 
             }
-            //dibuja la barra
-            basBarra.paint(graDibujo, this);
             
             //Dibuja la imagen de los bloques
             for (Base basBlock:lklBlock) {
