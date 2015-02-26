@@ -17,7 +17,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author JoseFernando
+ * @author JoseFernando y Juan Carlos Guzmán
  */
 public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener {
 
@@ -351,31 +351,33 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     public void checaColision(){
         
         // checa cuando la barra se sale por la izq
-        if(basBarra.getX() < 0){
+        if(basBarra.getX() < 0) {
             basBarra.setX(0);
         }
         // checa cuando la barra se sale por la derecha
-        if(basBarra.getX() + basBarra.getAncho() > iWidth){
+        if(basBarra.getX() + basBarra.getAncho() > iWidth) {
             basBarra.setX(iWidth - basBarra.getAncho());
         }
         
         
-        if(basBall.getX() < 0 ){    //Ball Se sale por la izquierda
+        if(basBall.getX() < 0 ) {    //Ball Se sale por la izquierda
             iDireccionX *= -1;
             basBall.setX(0);
         }
         
         //Ball Se sale por la derecha
-        if(basBall.getX() + basBall.getAncho() > iWidth){
+        if(basBall.getX() + basBall.getAncho() > iWidth) {
             iDireccionX *= -1;
             basBall.setX(iWidth - basBall.getAncho());
         }
         //Ball se sale por arriba
-        if(basBall.getY() < 80  ){
+        if(basBall.getY() < 80  ) {
             iDireccionY *= -1;
             basBall.setY(80);
         }
-        if( basBall.getY() + basBall.getAlto() > iHeight){
+        
+        //Ball se sale por abajo
+        if( basBall.getY() + basBall.getAlto() > iHeight) {
             
             // vuelve a aparecer la bola
             basBall.setX(iWidth / 2 - basBall.getAncho() / 2);
@@ -383,130 +385,140 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             iDireccionX = 0;
             iDireccionY = -5;
             
+            //Reposiciono la barra
             basBarra.setX(iWidth / 2 - basBarra.getAncho() /2);
 
-            iVidas--;
-            scSonidoWalter.play();
-            // 1 vida menos
-            if (iVidas == 0){
+            iVidas--; //Decremento vidas
+            scSonidoWalter.play(); //Reproduzco sonido
+
+            if (iVidas == 0) {   //Checo si se acabaron las vidas
                 iNivel = 1;
             }
+            
             //Hago que desaparezca unade las vidas
             lklTruck.pop();
         }
         
-        boolean bChocoVertical = false;
+        //Variables para verificar que hubo choques
+        boolean bChocoVertical = false;  
         boolean bChocoHorizontal = false;
+        
+        //Variables para guardar posicion a la que se debe de mover BALL
+        //en caso de un choque
         int iAuxY = 0;
         int iAuxX = 0;
+        
         for(Base basBlock:lklBlock) {
-           
-            
-            if(basBlock.intersecta(basBall)){
+            if(basBlock.intersecta(basBall)) {
                 
+                //Velocidad en Y
                 int iAuxDirY = iDireccionY + (iNivel * iDireccionY / 5);
+                
                 // intersecta por abajo o por arriba
-                if(basBlock.intersectapor(basBall, iDireccionX, iAuxDirY) == 1){
-                    bChocoVertical = true;
-                    if(basBlock.getY() < basBall.getY()){
+                if(basBlock.intersectapor(basBall, iDireccionX, iAuxDirY) == 1) {
+                    bChocoVertical = true;  //Indico que hubo un choque
+                    if(basBlock.getY() < basBall.getY()) { //Choca por arriba
                         iAuxY = basBlock.getY() + basBlock.getAlto();
                     }
-                    else{
+                    else{   //Choca por abajo
                         iAuxY = basBlock.getY() - basBall.getAlto();
                     }
                 }
+                
                 // intersecta por izquierda o derecha
-                else if(basBlock.intersectapor(basBall, iDireccionX, iAuxDirY) == 2){
+                else if(basBlock.intersectapor(basBall,
+                        iDireccionX, iAuxDirY) == 2) {
                     bChocoHorizontal = true;
-                    if(basBlock.getX() < basBall.getX()){
+                    if(basBlock.getX() < basBall.getX()) {   //Choca por derecha
                         iAuxX = basBlock.getX() + basBlock.getAncho();
                     }
-                    else{
+                    else {   //Choca por la izquierda
                         iAuxX = basBlock.getX() - basBall.getAncho();
                     }
                 }
                 
-                if (basBlock.getImagen() == imgBlock1){
-                    basBlock.setX(basBlock.getX()-iWidth);
-                    iCantBloques--;
-                    iScore += 10;
-                    scSonidoDam.play();
+                //Si era un bloque de tipo azul
+                if (basBlock.getImagen() == imgBlock1) {
+                    basBlock.setX(basBlock.getX()-iWidth);  //Desaparecer bloque
+                    iCantBloques--; //Disminuyuo cantidad de bloques
+                    iScore += 10;   //Aumento el puntaje
                 }
-                else if (basBlock.getImagen() == imgBlock2){
-                    basBlock.setImagen(imgBlock1);
-                    iScore += 20;
-                    scSonidoDam.play();
+                //Si era un bloque de tipo verde
+                else if (basBlock.getImagen() == imgBlock2) {
+                    basBlock.setImagen(imgBlock1);  //Cambio a tipo azul
+                    iScore += 20;   //Aumento el puntaje
                 }
-                else if (basBlock.getImagen() == imgBlock3){
-                    basBlock.setImagen(imgBlock2);
-                    iScore += 30;
-                    scSonidoDam.play();
-                    
-                }else if(basBlock.getImagen() == imgBlockSpecial){
-                    basBlock.setX(basBlock.getX()-iWidth);
-                    iCantBloques--;
-                    iScore += 100;
-                    scSonidoYo.play();
-                    
+                //Si era un bloque de tipo morado
+                else if (basBlock.getImagen() == imgBlock3) {
+                    basBlock.setImagen(imgBlock2);  //Cambio a tipo verde
+                    iScore += 30;   //Aumento puntaje 
+                }
+                //Si era un bloque de tipo Jessie
+                else if(basBlock.getImagen() == imgBlockSpecial) {
+                    basBlock.setX(basBlock.getX()-iWidth);  //Desaparezco bloque
+                    iCantBloques--; //Disminuyo cantidad de bloques
+                    iScore += 100;  //Aumento puntaje  
                 }
                 
-                
-                   
+                scSonidoDam.play(); //Reproduzco sonido   
             } 
         }
-        if (bChocoVertical){
-            iDireccionY *= -1;
-            basBall.setY(iAuxY);
+        
+        if (bChocoVertical) {
+            iDireccionY *= -1;  //Cambio dirección
+            basBall.setY(iAuxY);    //Cambio posicion
         } 
-        if(bChocoHorizontal){
-            iDireccionX *= -1;
-            basBall.setX(iAuxX);
+        if(bChocoHorizontal) {
+            iDireccionX *= -1;  //Cambio direccion
+            basBall.setX(iAuxX);    //Cambio posicion
         } 
-        if(iCantBloques == 0){
-            iNivel++;
-            int iAux = iScore;
-            int iAux2 = iVidas;
-            vuelveAEmpezar();
-            iScore = iAux;
-            iVidas = iAux2;
-            int iPosX = 100;
-            while (!lklTruck.isEmpty()){
+        
+        //Si ya se rompieron todos los bloques
+        if(iCantBloques == 0) {
+            iNivel++;   //Incremento nivel de dificultad
+            int iAux = iScore;  //Guardo puntaje
+            int iAux2 = iVidas; //Guardo vidas
+            vuelveAEmpezar();   //Reinicio todas las variables
+            iScore = iAux;      //Reestablezco el puntaje
+            iVidas = iAux2;     //Reestablezco las vidas
+            
+            //Vacio el arreglo de camiones (vidas)
+            while (!lklTruck.isEmpty()) {
                 lklTruck.pop();
             }
+            
+            //Vuelvo a llenar arreglo hasta que llego a la cantidad real de vidas
+            int iPosX = 100;
             for(int iI = 0; iI < iVidas; iI++) {
                 Base basTruck = new Base(iPosX, 30,
-                         iWidth / 12 , iHeight / 13,imgTruck);
-
-                iPosX += iWidth / 12;
-
-                lklTruck.add(basTruck);
+                         iWidth / 12 , iHeight / 13,imgTruck);  //Creo camion
+                iPosX += iWidth / 12;   //Aumento posicion del camion
+                lklTruck.add(basTruck); //Agrego al camion
             }
         }
         
-        if(basBarra.intersecta(basBall)){
+        if(basBarra.intersecta(basBall)) {//Checo intersección entre barra y bola
             
-            
-            
+            //Guardo distancia entre mitad de barra y mitad de bola
             int iPosX1 = ((basBall.getX() + basBall.getAncho() / 2  ) - 
                     (basBarra.getX() + basBarra.getAncho() / 2));
-            
-            iPosX1 *= 10;
-            double iPorcentaje = 
+            iPosX1 *= 10;   //Multiplico por 10
+            double iPorcentaje = //Ajusto para que sea proporcional
                     ( iPosX1 / (basBarra.getAncho()-basBall.getAncho() ) );
-                    
-         
+            
+            //Modifico direcciones
             iDireccionX = (int) (iPorcentaje);
             iDireccionY *= -1; 
             
+            //Muevo a la pelota  la parte superior de la barra
             basBall.setY(basBarra.getY() - basBall.getAlto());
         }
         
+        //Checo colision entre los camiones y el espacio delimitado para ellos
         for(Base basTruck:lklTruck) {
-        
             if(basTruck.getX() > 600){
-                basTruck.setX(30);
-            }
-            
+                basTruck.setX(30);  //Modifico posicion
+            }    
         }
         
     }
@@ -517,8 +529,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
      * En este metodo lo que hace es actualizar el contenedor
      * En este metodo se dibuja la imagen con la posicion actualizada,
      * @param graphics es el <code>objeto grafico</code> usado para dibujar.
-     */
-    
+     */   
     public void paint(Graphics graGrafico) {
         
         // Inicializan el DoubleBuffer
@@ -561,7 +572,6 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
      * ademas que cuando la imagen es cargada te despliega una advertencia.
      * @param graphics es el <code>objeto grafico</code> usado para dibujar.
      */
-    
     public void paint1 (Graphics graDibujo){
         
         // para cuando algun objeto no se ha pintado
@@ -697,7 +707,6 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
      * En este metodo maneja el evento que se genera al presionar una tecla que no es de accion.
      * @param keyEvent es el <code>evento</code> que se genera en al presionar las teclas.
      */
-    
     @Override
     public void keyTyped(KeyEvent keyEvent) {
         
