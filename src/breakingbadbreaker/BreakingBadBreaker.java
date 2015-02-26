@@ -73,6 +73,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     
     private Animacion aniHank; // animacion de la bola de hank
     private Animacion aniHector; // animacion de la bola de hector
+    private Animacion aniFring; //  animacion de la bola de Fring
     private long lTiempo; // variable usada para guardar el tiempo
     private boolean bInicia; // bolean cuando ya inicio el juego
     
@@ -221,6 +222,10 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
         //Creo animacion de hector
         aniHector = new Animacion();
+        
+        //Creo animacion de Fring;
+        aniFring = new Animacion();
+        
         long lDuracion = 125;
         
         // agrego cada imagen de hank a la animacion
@@ -258,6 +263,24 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                 .getResource("Images/hectorG.png")), lDuracion);
         aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("Images/hectorH.png")), lDuracion);
+        
+        // cada imagen de Fring a la animacion
+        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/FringA.png")), lDuracion);
+        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/FringB.png")), lDuracion);
+        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/FringC.png")), lDuracion);
+        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/FringD.png")), lDuracion);
+        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/FringE.png")), lDuracion);
+        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/FringF.png")), lDuracion);
+        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/FringG.png")), lDuracion);
+        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/FringH.png")), lDuracion);
         
         // las variables donde se va a posicionar cada bloque
         int iPosX  = 0;
@@ -378,6 +401,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         lTiempo = System.currentTimeMillis();
         aniHank.actualiza(lTiempoTrans); // actualiza la imagen de la animacion
         aniHector.actualiza(lTiempoTrans); // actualiza la imagen de la animacion
+        aniFring.actualiza(lTiempoTrans); //actualiza animacion de Fring
         aniBarraFring.actualiza(lTiempoTrans);  //  actualiza imagen de animacion
         aniBarraHank.actualiza(lTiempoTrans);   //  actualiza imagen de animacion
         aniBarraHector.actualiza(lTiempoTrans); //  actualiza imagen de animacion
@@ -693,7 +717,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             }else if(iNivel % iCantidadBall == 2) {
                 
                 //dibuja la ball y barra de Fring
-                graDibujo.drawImage(aniHank.getImagen(),basBall.getX(),
+                graDibujo.drawImage(aniFring.getImagen(),basBall.getX(),
                         basBall.getY(),iWidth/15, iHeight/12, this);
                 graDibujo.drawImage(aniBarraFring.getImagen(), basBarra.getX()
                         , basBarra.getY(), iWidth / 3, iHeight / 10, this);
