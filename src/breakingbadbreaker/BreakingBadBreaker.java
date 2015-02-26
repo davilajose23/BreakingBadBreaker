@@ -528,7 +528,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     public void paint1 (Graphics graDibujo){
         
         if (lklBlock != null && basBall != null && basBarra != null
-                && lklTruck != null) {
+                && lklTruck != null && !bInicia) {
             
             //Dibuja la imagen de las trucks
             for (Base basTruck:lklTruck) {
