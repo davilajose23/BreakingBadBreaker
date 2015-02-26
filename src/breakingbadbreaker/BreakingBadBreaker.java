@@ -57,6 +57,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     private Image imgTruck;
     private Image imgGameOver;
     
+    private Image imgBlockSpecial;
     private Image imgBlock1;
     private Image imgBlock2;
     private Image imgBlock3;
@@ -106,6 +107,9 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
         imgBlock3 = Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("walter3.png"));
+        
+        imgBlockSpecial = Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("jessie.png"));
         
         //la imagen de cada Truck
         imgTruck = Toolkit.getDefaultToolkit().getImage(this.getClass()
@@ -159,19 +163,23 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         
         for(int iI = 0; iI < iCantBloques; iI++) {
             
-            int iRandom = (int) (Math.random() * 3 + 1);
+            int iRandom = (int) (Math.random() * 11 + 1);
             Base basBlock = new Base(iPosX, iPosY,
                      iWidth / iMAXANCHO, iHeight / iMAXALTO,imgBlock);
             
-            if (iRandom == 1){
+            if ( iRandom < 4){
                 basBlock.setImagen(imgBlock1);
             }
-            else if (iRandom == 2){
+            else if (iRandom >= 4 && iRandom < 7){
                 basBlock.setImagen(imgBlock2);
             }
-            else if (iRandom == 3){
+            else if (iRandom >= 7 && iRandom < 10){
                 basBlock.setImagen(imgBlock3);
+                
+            }else{
+                basBlock.setImagen(imgBlockSpecial);
             }
+            
            
             iPosX += iWidth / iMAXANCHO;
             if(iPosX == iWidth){
@@ -360,6 +368,12 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                 else if (basBlock.getImagen() == imgBlock3){
                     basBlock.setImagen(imgBlock2);
                     iScore += 30;
+                    
+                }else if(basBlock.getImagen() == imgBlockSpecial){
+                    basBlock.setX(basBlock.getX()-iWidth);
+                    iCantBloques--;
+                    iScore += 100;
+                    
                 }
                 
                 if(iCantBloques == 0){
