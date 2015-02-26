@@ -56,6 +56,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     private Image imgBarra;
     private Image imgTruck;
     private Image imgGameOver;
+    private Image imgInicio;
     
     private Image imgBlockSpecial;
     private Image imgBlock1;
@@ -77,6 +78,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     
     private Animacion aniHank;
     private long lTiempo;
+    private boolean bInicia;
     
    /**
      * Constructor de la clase <code>JuegoJFrame</code>.
@@ -93,9 +95,14 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         iScore = 0;
         bPause = false;
         iNivel = 1;
+        bInicia = true; // Acaba de iniciar el juego
         
         lklBlock = new LinkedList<Base>();   //Creo la lista de meth 
         lklTruck = new LinkedList<Base>();   // creo la lista de trucks
+        
+        //La imagen del inicio
+        imgInicio = Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("inicio.png"));
         
         //la imagen de cada Block
         
@@ -229,7 +236,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         lTiempo = System.currentTimeMillis();
         while (true){
            
-            if(!bPause && iCantBloques > 0 && iVidas > 0){
+            if(!bPause && iCantBloques > 0 && iVidas > 0 && !bInicia){
                 actualiza();
                 checaColision();
                 repaint();
@@ -534,6 +541,10 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                     (iHeight / 2) - 180, this);
         }
         
+        if (bInicia) {
+            graDibujo.drawImage(imgInicio, 0, 0, iWidth, iHeight, this);
+        }
+        
     }
     
     /**
@@ -560,6 +571,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             if (iVidas == 0 || iCantBloques == 0){
                 vuelveAEmpezar();
             }
+            bInicia = false;
         }
         if(keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE){
             iVidas = 0;
