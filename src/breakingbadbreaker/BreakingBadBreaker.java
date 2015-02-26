@@ -56,6 +56,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     private SoundClip scSonidoWalter;  // Objeto sonido de walter say my name
     private SoundClip scSonidoIntro; // sonido de inicio
     private SoundClip scSonidoDam; // sonido de walter goddam
+    private SoundClip scSonidoYo; // sonido de jessie
     
     private int iCantBloques; // cantidad de bloques restantes
     private int iVidas; // cantidad de vidas restantes
@@ -104,6 +105,8 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         scSonidoIntro = new SoundClip("intro.wav");
         //defino el sonido 3
         scSonidoDam = new SoundClip("goddam.wav");
+        //defino el sonido 4
+        scSonidoYo = new SoundClip("yo.wav");
         
         //La imagen del inicio
         imgInicio = Toolkit.getDefaultToolkit().getImage(this.getClass()
@@ -505,25 +508,28 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                     basBlock.setX(basBlock.getX()-iWidth);  //Desaparecer bloque
                     iCantBloques--; //Disminuyuo cantidad de bloques
                     iScore += 10;   //Aumento el puntaje
+                    scSonidoDam.play(); //Reproduzco sonido 
                 }
                 //Si era un bloque de tipo verde
                 else if (basBlock.getImagen() == imgBlock2) {
                     basBlock.setImagen(imgBlock1);  //Cambio a tipo azul
                     iScore += 20;   //Aumento el puntaje
+                    scSonidoDam.play(); //Reproduzco sonido 
                 }
                 //Si era un bloque de tipo morado
                 else if (basBlock.getImagen() == imgBlock3) {
                     basBlock.setImagen(imgBlock2);  //Cambio a tipo verde
                     iScore += 30;   //Aumento puntaje 
+                    scSonidoDam.play(); //Reproduzco sonido 
                 }
                 //Si era un bloque de tipo Jessie
                 else if(basBlock.getImagen() == imgBlockSpecial) {
                     basBlock.setX(basBlock.getX()-iWidth);  //Desaparezco bloque
                     iCantBloques--; //Disminuyo cantidad de bloques
                     iScore += 100;  //Aumento puntaje  
+                    scSonidoYo.play(); //Reproduzco sonido 
                 }
                 
-                scSonidoDam.play(); //Reproduzco sonido   
             } 
         }
         
@@ -615,6 +621,13 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
 
 
             paint1(graGrafica);
+            
+            Image imgPausa = Toolkit.getDefaultToolkit().getImage(this.getClass().
+                    getResource("pausa.png"));
+            if(bPause){
+                graGrafica.drawImage(imgPausa, (iWidth / 2) - 320 ,
+                    (iHeight / 2) - 180, this);
+            }
          }
          else{   
              // dibuja la imagen del menu
