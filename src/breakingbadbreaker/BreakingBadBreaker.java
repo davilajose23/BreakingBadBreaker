@@ -55,6 +55,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     private Image imgBall;
     private Image imgBarra;
     private Image imgTruck;
+    private Image imgGameOver;
     
     private Image imgBlock1;
     private Image imgBlock2;
@@ -116,7 +117,9 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         // la imagen de la barra
         imgBarra = Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("barra.png"));
-        
+        // la imagen de game over
+        imgGameOver = Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("gameover.png"));
         
         basBall = new Base(iWidth / 2, 3 * iHeight / 4 , 
              //   iWidth / 10 , iHeight / 7, imgBall);
@@ -504,6 +507,12 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         graDibujo.drawString("Nivel: "+ iNivel,iWidth - 350 ,60); // escribo el nivel
         graDibujo.drawString("Puntos: " + iScore, iWidth - 200, 60);  // escribo score
         graDibujo.setFont(graDibujo.getFont().deriveFont(30.0f));
+        
+        if(iVidas == 0){
+            graDibujo.drawImage(imgGameOver, (iWidth / 2 ) - 320,
+                    (iHeight / 2) - 180, this);
+        }
+        
     }
     
     /**
