@@ -237,7 +237,7 @@ public class Base {
             // si intersecta por abajo o por arriba
             if (this.getY() + this.getAlto() <= 
                     basObjeto.getY() - iDireccionY || 
-                    this.getY() >= basObjeto.getY() - iDireccionY){
+                    this.getY() >= basObjeto.getY() + basObjeto.getAlto() - iDireccionY){
                 
                 return 1;
    
