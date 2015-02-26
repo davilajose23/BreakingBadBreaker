@@ -56,6 +56,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     private SoundClip scSonidoWalter;  // Objeto sonido de walter say my name
     private SoundClip scSonidoIntro; // sonido de inicio
     private SoundClip scSonidoDam; // sonido de walter goddam
+    private SoundClip scSonidoYo; // sonido de jessie
     
     private int iCantBloques; // cantidad de bloques restantes
     private int iVidas; // cantidad de vidas restantes
@@ -101,6 +102,8 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         scSonidoIntro = new SoundClip("intro.wav");
         //defino el sonido 3
         scSonidoDam = new SoundClip("goddam.wav");
+        //defino el sonido 4
+        scSonidoYo = new SoundClip("yo.wav");
         
         //La imagen del inicio
         imgInicio = Toolkit.getDefaultToolkit().getImage(this.getClass()
@@ -427,23 +430,27 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                     basBlock.setX(basBlock.getX()-iWidth);
                     iCantBloques--;
                     iScore += 10;
+                    scSonidoDam.play();
                 }
                 else if (basBlock.getImagen() == imgBlock2){
                     basBlock.setImagen(imgBlock1);
                     iScore += 20;
+                    scSonidoDam.play();
                 }
                 else if (basBlock.getImagen() == imgBlock3){
                     basBlock.setImagen(imgBlock2);
                     iScore += 30;
+                    scSonidoDam.play();
                     
                 }else if(basBlock.getImagen() == imgBlockSpecial){
                     basBlock.setX(basBlock.getX()-iWidth);
                     iCantBloques--;
                     iScore += 100;
+                    scSonidoYo.play();
                     
                 }
                 
-                scSonidoDam.play();
+                
                    
             } 
         }
