@@ -91,7 +91,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         iVidas = 5;
         iScore = 0;
         bPause = false;
-        iNivel = 9;
+        iNivel = 1;
         
         lklBlock = new LinkedList<Base>();   //Creo la lista de meth 
         lklTruck = new LinkedList<Base>();   // creo la lista de trucks
