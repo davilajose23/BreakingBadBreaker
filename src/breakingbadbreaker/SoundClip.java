@@ -1,7 +1,3 @@
-/**
- * Clase SoundClip
- *
- */
 
 package breakingbadbreaker;
 
@@ -12,6 +8,17 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.AudioSystem;
 import java.io.IOException;
 import java.net.URL;
+
+/**
+ * SoundClip
+ *
+ * La clase SoundClip para reproducir sonidos
+ * <code>SoundClip</code>
+ *
+ * @author José Fernando Davila     
+ * @version 1
+ * @date 25/Feb/2015
+ */
 
 public class SoundClip {
 
