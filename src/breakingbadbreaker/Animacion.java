@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * y la cantidad de tiempo que se muestra cada cuadro.
  * <code>Animacion</code>
  *
- * @author José Fernando Davila     
+ * @author José Fernando Davila y Juan Carlos Guzmán     
  * @version 1
  * @date 25/Feb/2015
  */

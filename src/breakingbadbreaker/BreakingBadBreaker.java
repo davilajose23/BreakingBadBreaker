@@ -17,7 +17,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author JoseFernando
+ * @author JoseFernando y Juan Carlos Guzmán
  */
 public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener {
 

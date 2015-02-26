@@ -10,7 +10,7 @@ package breakingbadbreaker;
  * Modela la definición de todos los objetos de tipo
  * <code>Base</code>
  *
- * @author José Fernando Davila    
+ * @author José Fernando Davila y Juan Carlos Guzmán    
  * @version 1
  * @date 18/Feb/2015
  */
@@ -189,7 +189,7 @@ public class Base {
         }
     }
     
-    /*
+    /**
      * intersecta
      *
      * Metodo que checa si un Objeto intersecta a otro
@@ -217,15 +217,16 @@ public class Base {
         }
     }
     
-    /*
+    /**
      * intersectapor
      *
-     * Metodo que checa si un Objeto intersecta a otro
+     * Metodo que checa si un Objeto intersecta a otro, y regresa la direccion
+     * desde la cual le chocó
      *
      * @param objObjeto es un objeto de la clase <code>Object</code>
      * @param iDireccion es un int con la direccion del objeto
      * @return un int para saber por donde intersecta 
-     *1 = izq, 2 = der, 3 = abajo 4 = arriba
+     *2 = izq o der, 1 = abajo o arriba
      */
     public int intersectapor(Object objObjeto, int iDireccionX, int iDireccionY) {
         
@@ -237,27 +238,22 @@ public class Base {
             // si intersecta por abajo o por arriba
             if (this.getY() + this.getAlto() <= 
                     basObjeto.getY() - iDireccionY || 
-                    this.getY() >= basObjeto.getY() + basObjeto.getAlto() - iDireccionY){
-                
+                    this.getY() >= basObjeto.getY() + 
+                    basObjeto.getAlto() - iDireccionY) {
                 return 1;
-   
-                
             }
+            
             // si intersecta por izq o derecha
             if (this.getX() + this.getAncho() <= 
                     basObjeto.getX() - iDireccionX ||
-                    this.getX() >= basObjeto.getX() - iDireccionX){
-                
+                    this.getX() >= basObjeto.getX() - iDireccionX){   
                 return 2;
-
             }
             
-            
-            
-            return 0;
+            return 0;   //Para manejo de errores, regreso 0
         } 
         else {
-            return 0;
+            return 0;   //Regreso 0 pues no es una base o no intersecta
         }
     }
 
