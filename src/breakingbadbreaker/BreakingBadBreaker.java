@@ -442,25 +442,28 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                     basBlock.setX(basBlock.getX()-iWidth);  //Desaparecer bloque
                     iCantBloques--; //Disminuyuo cantidad de bloques
                     iScore += 10;   //Aumento el puntaje
+                    scSonidoDam.play(); //Reproduzco sonido 
                 }
                 //Si era un bloque de tipo verde
                 else if (basBlock.getImagen() == imgBlock2) {
                     basBlock.setImagen(imgBlock1);  //Cambio a tipo azul
                     iScore += 20;   //Aumento el puntaje
+                    scSonidoDam.play(); //Reproduzco sonido 
                 }
                 //Si era un bloque de tipo morado
                 else if (basBlock.getImagen() == imgBlock3) {
                     basBlock.setImagen(imgBlock2);  //Cambio a tipo verde
                     iScore += 30;   //Aumento puntaje 
+                    scSonidoDam.play(); //Reproduzco sonido 
                 }
                 //Si era un bloque de tipo Jessie
                 else if(basBlock.getImagen() == imgBlockSpecial) {
                     basBlock.setX(basBlock.getX()-iWidth);  //Desaparezco bloque
                     iCantBloques--; //Disminuyo cantidad de bloques
                     iScore += 100;  //Aumento puntaje  
+                    scSonidoYo.play(); //Reproduzco sonido 
                 }
                 
-                scSonidoDam.play(); //Reproduzco sonido   
             } 
         }
         
