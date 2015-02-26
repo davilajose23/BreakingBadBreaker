@@ -73,7 +73,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
     
     private Animacion aniHank; // animacion de la bola de hank
     private Animacion aniHector; // animacion de la bola de hector
-    private Animacion aniFring; //  animacion de la bola de Fring
+    private Animacion aniGus; //  animacion de la bola de Fring
     private long lTiempo; // variable usada para guardar el tiempo
     private boolean bInicia; // bolean cuando ya inicio el juego
     
@@ -224,7 +224,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         aniHector = new Animacion();
         
         //Creo animacion de Fring;
-        aniFring = new Animacion();
+        aniGus = new Animacion();
         
         long lDuracion = 125;
         
@@ -265,22 +265,22 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
                 .getResource("Images/hectorH.png")), lDuracion);
         
         // cada imagen de Fring a la animacion
-        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/FringA.png")), lDuracion);
-        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/FringB.png")), lDuracion);
-        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/FringC.png")), lDuracion);
-        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/FringD.png")), lDuracion);
-        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/FringE.png")), lDuracion);
-        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/FringF.png")), lDuracion);
-        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/FringG.png")), lDuracion);
-        aniHector.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
-                .getResource("Images/FringH.png")), lDuracion);
+        aniGus.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/gusA.png")), lDuracion);
+        aniGus.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/gusB.png")), lDuracion);
+        aniGus.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/gusC.png")), lDuracion);
+        aniGus.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/gusD.png")), lDuracion);
+        aniGus.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/gusE.png")), lDuracion);
+        aniGus.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/gusF.png")), lDuracion);
+        aniGus.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/gusG.png")), lDuracion);
+        aniGus.sumaCuadro(Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Images/gusH.png")), lDuracion);
         
         // las variables donde se va a posicionar cada bloque
         int iPosX  = 0;
@@ -401,7 +401,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
         lTiempo = System.currentTimeMillis();
         aniHank.actualiza(lTiempoTrans); // actualiza la imagen de la animacion
         aniHector.actualiza(lTiempoTrans); // actualiza la imagen de la animacion
-        aniFring.actualiza(lTiempoTrans); //actualiza animacion de Fring
+        aniGus.actualiza(lTiempoTrans); //actualiza animacion de Fring
         aniBarraFring.actualiza(lTiempoTrans);  //  actualiza imagen de animacion
         aniBarraHank.actualiza(lTiempoTrans);   //  actualiza imagen de animacion
         aniBarraHector.actualiza(lTiempoTrans); //  actualiza imagen de animacion
@@ -717,7 +717,7 @@ public class BreakingBadBreaker extends JFrame implements Runnable, KeyListener 
             }else if(iNivel % iCantidadBall == 2) {
                 
                 //dibuja la ball y barra de Fring
-                graDibujo.drawImage(aniFring.getImagen(),basBall.getX(),
+                graDibujo.drawImage(aniGus.getImagen(),basBall.getX(),
                         basBall.getY(),iWidth/15, iHeight/12, this);
                 graDibujo.drawImage(aniBarraFring.getImagen(), basBarra.getX()
                         , basBarra.getY(), iWidth / 3, iHeight / 10, this);
